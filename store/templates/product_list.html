@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for product in products.all %}
+        <p>{{product.title}} - {{product.sku}}</p>
+        <p>Sold By: {% for seller in product.seller.all %}{{seller}}</p>{% endfor %}
+    {% endfor %}
+
+{% endblock content %}

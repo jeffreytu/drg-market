@@ -16,8 +16,3 @@ class CustomUserAdmin(UserAdmin):
     list_display = ['email', 'username', 'first_name', 'last_name']
 
 admin.site.register(CustomUser, CustomUserAdmin)
-
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['sku','title', 'category_num']
-
-admin.site.register(Product, ProductAdmin)
