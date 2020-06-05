@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Product, Listing
+from .forms import CreateListingForm
 # Create your views here.
 
 def productList(request):
@@ -20,3 +21,17 @@ def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
     context = {'listing': listing}
     return render(request, 'product_listing.html', context)
+
+def createListing(request):
+    seller = Listing.objects.get(id=request.user.id)
+    if request.method == 'POST':
+        form = CreateListingForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['seller'] == request.user:
+                form.save()
+            else:
+                print('invalid user submission')
+    else:
+        form = CreateListingForm(initial={'seller':request.user.id})
+    context = {'form': form}
+    return render(request, 'sell.html', context)
