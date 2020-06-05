@@ -6,8 +6,8 @@
     <p>{{product.sku}}</p>
     <p>{{product.description}}</p>
     <p>{{product.price}}</p>
-    {% for seller in product.seller.all %}
-        <p>{{seller}}</p>
+    {% for listing in listings %}
+        <p><a href="{% url 'product-listing' listing.id %}">{{listing.seller}} - {{listing}}</a></p>
     {% endfor %}
 
 {% endblock content %}

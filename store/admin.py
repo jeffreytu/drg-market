@@ -7,4 +7,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 
-admin.site.register(Listing)
+class ListingAdmin(admin.ModelAdmin):
+    list_display = ['seller','category','title','price']
+admin.site.register(Listing, ListingAdmin)
