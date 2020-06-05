@@ -6,18 +6,25 @@ class Product(models.Model):
 
     PROD_CATEGORY = (
         (-1, 'Unassigned'),
-        (2, 'Home'),
-        (3, 'Outdoor'),
+        (2, 'Apple iPhone 11'),
+        (3, 'Samsung Galaxy S20'),
     )
 
-    seller = models.ManyToManyField(CustomUser)
     sku = models.CharField('SKU', max_length=30, null=True, blank=False)
     title = models.CharField('Title', max_length=80, null=True, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     category_num = models.IntegerField('Category Number', choices=PROD_CATEGORY, default=-1)
-    date_created = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.sku
+        return self.get_category_num_display()
+
+class Listing(models.Model):
+    seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField('Title', max_length=80, null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
+
+    def __str__(self):
+        return self.title

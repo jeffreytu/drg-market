@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Listing
 # Create your views here.
 
 def productList(request):
@@ -9,5 +9,14 @@ def productList(request):
 
 def productDetail(request, sku):
     product = Product.objects.get(sku=sku)
-    context = {'product': product}
+    listings = Listing.objects.filter(category__sku=sku)
+    context = {
+        'product': product,
+        'listings': listings
+    }
     return render(request, 'product_detail.html', context)
+
+def productListingDetail(request,listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    context = {'listing': listing}
+    return render(request, 'product_listing.html', context)

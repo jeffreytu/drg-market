@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>Sold by: {{seller}}</p>
-    <p>{{product.title}}</p>
-    <p>{{product.sku}}</p>
-    <p>{{product.description}}</p>
-    <p>{{product.price}}</p>
-    <p>{{seller}}</p>
+
+    <p>Sold by: {{listing.seller}}</p>
+    <p>{{listing.title}}</p>
+    <p>{{listing.price}}</p>
 
 {% endblock content %}
