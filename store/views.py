@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Product, Listing
 from .forms import CreateListingForm
+from django.forms import ModelForm, ValidationError
 # Create your views here.
 
 def userHome(request):
@@ -34,12 +35,13 @@ def productListingDetail(request,listing_id):
 def createListing(request):
     seller = Listing.objects.get(id=request.user.id)
     if request.method == 'POST':
-        form = CreateListingForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data['seller'] == request.user:
-                form.save()
-            else:
-                print('invalid user submission')
+        form = CreateListingForm(data=request.POST, user=request.user)
+        # if form.is_valid():
+            # if form.cleaned_data['seller'] == request.user:
+                # form.save()
+            # else:
+            #     print(form.errors)
+            #     print(form.non_field_errors)
     else:
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}
