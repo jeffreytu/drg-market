@@ -33,15 +33,11 @@ def productListingDetail(request,listing_id):
     return render(request, 'product_listing.html', context)
 
 def createListing(request):
-    seller = Listing.objects.get(id=request.user.id)
+    # seller = Listing.objects.get(id=request.user.id)
     if request.method == 'POST':
         form = CreateListingForm(data=request.POST, user=request.user)
-        # if form.is_valid():
-            # if form.cleaned_data['seller'] == request.user:
-                # form.save()
-            # else:
-            #     print(form.errors)
-            #     print(form.non_field_errors)
+        if form.is_valid():
+            form.save()
     else:
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}
