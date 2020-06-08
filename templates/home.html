@@ -4,11 +4,8 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
+  show products
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a> |
-  <a href="{% url 'signup' %}">signup</a>
+  welcome to drg market
 {% endif %}
 {% endblock %}

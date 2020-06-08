@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Drg Market</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'product-list' %}">Buy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'create-listing' %}">Sell</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      {% if user.is_authenticated %}
+        Hi, {{ user.username }}
+        <span><a href="{% url 'logout' %}">logout</a></span>
+      {% else %}
+        <a href="{% url 'login' %}">login</a> |
+        <a href="{% url 'signup' %}">signup</a>
+      {% endif %}
+    </span>
+  </div>
+</nav>

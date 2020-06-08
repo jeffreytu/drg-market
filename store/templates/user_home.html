@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Listings for sale:
+    {% for listing in listings %}
+        <p>{{ listing }}</p>
+    {% endfor %}
+
+    Browse other listings:
+    {% for product in products %}
+        <p>{{ product }}</p>
+    {% endfor %}    
+{% endblock content %}
