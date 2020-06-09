@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Product, Listing
-from .forms import CreateListingForm
+from .forms import CreateListingForm, CommentForm
 from django.forms import ModelForm, ValidationError
 # Create your views here.
 
@@ -42,3 +42,18 @@ def createListing(request):
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}
     return render(request, 'sell.html', context)
+
+def comment_detail(request):
+    
+    # listing = Comment.objects.get()
+    # comments = Comment.objects.filter()
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = CommentForm()
+    
+    context = {'form': form}
+    return render(request, 'comment.html', context)
+

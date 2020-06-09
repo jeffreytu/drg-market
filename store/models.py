@@ -28,3 +28,15 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    body = models.TextField(blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.author)

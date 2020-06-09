@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing
+from .models import Listing, Comment
 
 
 class CreateListingForm(forms.ModelForm):
@@ -17,3 +17,8 @@ class CreateListingForm(forms.ModelForm):
 
         if (form_user != logged_user):
             raise forms.ValidationError('Invalid listing creation by current user')
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author', 'body')
