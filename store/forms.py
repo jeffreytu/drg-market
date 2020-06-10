@@ -21,4 +21,24 @@ class CreateListingForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('author', 'body')
+        fields = ('listing','author', 'body')
+
+    def __init__(self, *args, **kwargs):
+        self.loggedUser = kwargs.pop('user', None)
+        self.listing = kwargs.pop('listing', None)
+        super(CommentForm, self).__init__(*args, **kwargs)
+
+    def clean_author(self):
+        form_user = self.cleaned_data['author']
+        logged_user = self.loggedUser
+
+        if (form_user != logged_user):
+            raise forms.ValidationError('Comment submitted by invalid user.')
+
+    def clean_listing(self):
+        form_listing = self.cleaned_data['listing']
+        current_listing = self.listing
+
+        if (form_listing != current_listing):
+            raise forms.ValidationError('Comment submitted to invalid listing.')
+        
