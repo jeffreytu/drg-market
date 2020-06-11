@@ -14,7 +14,7 @@
     </ul>
     <span class="navbar-text">
       {% if user.is_authenticated %}
-        Hi, {{ user.username }}
+        <span><a href="{% url 'user-profile' %}">{{ user.username }}</a></span> | 
         <span><a href="{% url 'logout' %}">logout</a></span>
       {% else %}
         <a href="{% url 'login' %}">login</a> |
