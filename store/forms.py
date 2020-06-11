@@ -21,7 +21,7 @@ class CreateListingForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('listing','author', 'body')
+        fields = ['body']
 
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)

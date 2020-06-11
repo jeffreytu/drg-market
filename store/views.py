@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import Product, Listing, Comment
+from .models import Product, Listing, Comment, CustomUser
 from .forms import CreateListingForm, CommentForm
 from django.forms import ModelForm, ValidationError
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def userHome(request):
@@ -30,16 +31,17 @@ def productDetail(request, sku):
 def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
     comments = Comment.objects.filter(listing=listing_id)
+    user = request.user
 
     if request.method == 'POST':
-        form = CommentForm(data=request.POST, user=request.user.id, listing=listing)
+        form = CommentForm(data=request.POST, user=user, listing=listing)
         if form.is_valid():
+            body = request.POST.get('body')
+            form = Comment.objects.create(author=user, listing=listing, body=body)
             form.save()
+            return HttpResponseRedirect(request.path_info)
     else:
-        form = CommentForm(initial={
-            'author': request.user.id,
-            'listing': listing,
-            })
+        form = CommentForm()
     
     context = {
         'form': form,
