@@ -55,8 +55,14 @@ def createListing(request):
     # seller = Listing.objects.get(id=request.user.id)
     if request.method == 'POST':
         form = CreateListingForm(data=request.POST, user=request.user)
+        files = request.FILES.getlist('file_field')
         if form.is_valid():
-            form.save()
+            for f in files:
+                instance = Image(image=file)  # match the model.
+                instance.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
     else:
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}

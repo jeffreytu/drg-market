@@ -7,6 +7,9 @@ class CreateListingForm(forms.ModelForm):
         model = Listing
         fields = ('__all__')
 
+    class FileFieldForm(forms.Form):
+        file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)
         super(CreateListingForm, self).__init__(*args, **kwargs)

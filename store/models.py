@@ -19,10 +19,15 @@ class Product(models.Model):
         return self.get_category_num_display()
 
 class Listing(models.Model):
+
+    def img_directory_path(instance, filename):
+        return 'l_{0}/{1}'.format(instance.id, filename)
+
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=80, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    images = models.ImageField(null=True, blank=True, upload_to=img_directory_path)
     date_created = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
 
