@@ -3,7 +3,11 @@
 {% block content %}
     Listings for sale:
     {% for listing in listings %}
-        <p><a href="{% url 'product-listing' listing.id %}">{{ listing }}</a><span> | <a href="{% url 'edit-listing' listing.id %}">edit</a></span></p>
+        <p>
+            <a href="{% url 'product-listing' listing.id %}">{{ listing }}</a>
+            <span> | <a href="{% url 'edit-listing' listing.id %}">edit</a></span>
+            <span> | <a href="{% url 'remove-listing' listing.id %}">remove</a></span>
+        </p>
     {% endfor %}
 
     Browse other listings:

@@ -60,7 +60,10 @@ def editListing(request, listing_id):
             if form.is_valid():
                 form.save()
                 return redirect('edit-listing', listing_id=listing_id)
-    context = {'form': form}
+    context = {
+        'form': form,
+        'listing': listing,
+        }
     return render(request, 'product_listing_edit.html', context)
 
 def createListing(request):
@@ -77,3 +80,13 @@ def createListing(request):
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}
     return render(request, 'sell.html', context)
+
+def deleteListing(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    if request.method == 'POST':
+        listing.delete()
+        return redirect('user-home')
+    context = {
+        'listing': listing
+    }
+    return render(request, 'product_listing_delete.html', context)

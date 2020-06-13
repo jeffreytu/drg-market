@@ -8,6 +8,7 @@
             {% csrf_token %}
             {{form.as_p}}
             <button type="submit" class="save btn btn-success">Save</button>
+            <a href="{% url 'remove-listing' listing.id %}"><button type="button" class="remove btn btn-danger">Remove Listing</button></a>
         </form>
         {% if form.errors %}
             <ul class="user-msg error">
