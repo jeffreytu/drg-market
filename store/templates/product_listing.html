@@ -3,10 +3,19 @@
 
 {% block content %}
 {{ MEDIA_URL }}
-    <p>Sold by: {{listing.seller}}</p>
+    <p>Sold by: {{listing.seller}}
+        {% if user.id == listing.seller.id %}
+            <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
+        {% endif %}
+    </p>
     <p>{{listing.title}}</p>
     <p>{{listing.price}}</p>
-    <p><a href="{{listing.images.url}}"><img style="width:200px" src="{{listing.images.url}}"></a></p>
+    {% if listing.images %}
+        <p><a href="{{listing.images.url}}"><img style="width:200px" src="{{listing.images.url}}"></a></p>
+    {% else %}
+        <p>No images available</p>
+    {% endif %}
+
 
 {% for comment in comments %}
     {{ comment.author }} | {{ comment.created_on }}

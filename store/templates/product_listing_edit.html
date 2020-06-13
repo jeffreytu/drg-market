@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <form method="POST" action="" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="save btn btn-success">Save</button>
+        </form>
+        {% if form.errors %}
+            <ul class="user-msg error">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>
+                    {% if field != '__all__' %}
+                        <strong>{{ field.label }}:</strong>
+                    {% endif %}
+                    {{ error }}
+                    </li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% else %}
+        <p>show list of current top products for sale by other buyers</p>
+        <p>ready to sell? login or register now</p>
+        <table class="table">
+            <tr>
+                <th>iPhone</th>
+                <th>Samsung</th>
+            </tr>
+            <tr>
+                <td>iPhone 11</td>
+                <td>Samsung Galaxy S20</td>
+            </tr>
+        </table>
+    {% endif %}
+
+{% endblock content %}

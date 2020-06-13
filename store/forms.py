@@ -11,15 +11,25 @@ class CreateListingForm(forms.ModelForm):
         file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     def __init__(self, *args, **kwargs):
+        # instance = kwargs.get('instance', None)
         self.loggedUser = kwargs.pop('user', None)
         super(CreateListingForm, self).__init__(*args, **kwargs)
 
+        # if instance:
+        #     self.initial['seller'] = instance.seller
+
     def clean_seller(self):
+        # instance_user = int(self.instance.seller.id)
         form_user = self.cleaned_data['seller']
         logged_user = self.loggedUser
 
+        # print('formuser', form_user)
+        # print('loggeduser', logged_user)
+        # print('instanceuser', instance_user)
+
         if (form_user != logged_user):
             raise forms.ValidationError('Invalid listing creation by current user')
+        return form_user
 
 class CommentForm(forms.ModelForm):
     class Meta:

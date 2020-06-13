@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Listing, Comment, CustomUser
 from .forms import CreateListingForm, CommentForm
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
-# Create your views here.
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
@@ -51,18 +50,29 @@ def productListingDetail(request,listing_id):
 
     return render(request, 'product_listing.html', context)
 
+def editListing(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    if request.method == 'GET':
+        form = CreateListingForm(instance=listing)
+    elif request.method == 'POST':
+            form = CreateListingForm(data=request.POST, instance=listing, user=request.user)
+            files = request.FILES.getlist('file_field')
+            if form.is_valid():
+                form.save()
+                return redirect('edit-listing', listing_id=listing_id)
+    context = {'form': form}
+    return render(request, 'product_listing_edit.html', context)
+
 def createListing(request):
-    # seller = Listing.objects.get(id=request.user.id)
     if request.method == 'POST':
         form = CreateListingForm(data=request.POST, user=request.user)
         files = request.FILES.getlist('file_field')
         if form.is_valid():
-            for f in files:
-                instance = Image(image=file)  # match the model.
-                instance.save()
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+            # for f in files:
+            #     instance = Image(image=file)  # match the model.
+            #     instance.save()
+            form.save()
+            return redirect('create-listing')
     else:
         form = CreateListingForm(initial={'seller':request.user.id})
     context = {'form': form}

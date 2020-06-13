@@ -28,7 +28,7 @@ class Listing(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     images = models.ImageField(null=True, blank=True, upload_to=img_directory_path)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
 
     def __str__(self):
