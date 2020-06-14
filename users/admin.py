@@ -16,3 +16,8 @@ class CustomUserAdmin(UserAdmin):
     list_display = ['email', 'username', 'first_name', 'last_name']
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+@admin.register(UserAddress)
+class UserAddressAdmin(admin.ModelAdmin):
+    pass

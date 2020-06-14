@@ -102,3 +102,12 @@ def deleteListing(request, listing_id):
         'listing': listing
     }
     return render(request, 'product_listing_delete.html', context)
+
+def buyListing(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    gallery = Gallery.objects.filter(listing=listing_id)
+    context = {
+        'listing': listing,
+        'gallery': gallery,
+    }
+    return render(request, 'buy-listing.html', context)

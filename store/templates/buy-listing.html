@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div>
+                <h4>{{listing.title}}</h4>
+                <p>Sold by: {{listing.seller}}</p>
+                <p>{{listing.description}}</p>
+                <p>${{listing.price}}</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="">
+            <h5>Your Shipping Address</h5>
+            <p>Buyer shipping address must be set to calculate final price</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5>Payment Breakdown</h5>
+            <p>Payment to Seller</p>
+            <p>Swappa Sale Fee</p>
+            <p>Shipping Costs</p>
+            <p>Taxes</p>
+            <hr>
+            <p>Total</p>
+        </div>
+    </div>
+    <button class="btn btn-success" type="button">Pay Now using PayPal</button>
+
+{% endblock content %}
