@@ -3,30 +3,41 @@
 
 {% block content %}
 
-    <p>Sold by: {{listing.seller}}
-        {% if user.id == listing.seller.id %}
-            <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
-        {% endif %}
-    </p>
-    <p>{{listing.title}}</p>
-    <p>{{listing.price}}</p>
+    <div class="row">
+        <div class="col-sm-8">
+            <h4>{{listing.title}}</h4>
+            <p>Sold by: {{listing.seller}}
+                {% if user.id == listing.seller.id %}
+                    <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <p><h4>${{listing.price}}</h4></p>
+            <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+        </div>
+    </div>
 
-    {% if gallery %}
-        <p>
-        {% for imagelist in gallery %}
-            <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
-        {% endfor %}
-    {% else %}
-        <span>No images available</span>
-        </p>
-    {% endif %}
+    <div class="row">
+        <div class="col-sm">
+            {% if gallery %}
+                <p>
+                {% for imagelist in gallery %}
+                    <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
+                {% endfor %}
+            {% else %}
+                <span>No images available</span>
+                </p>
+            {% endif %}
 
-    {% for comment in comments %}
-        {{ comment.author }} | {{ comment.created_on }}
-        <p>{{ comment.body | linebreaks }}</p>
-    {% endfor %}
+            {% for comment in comments %}
+                {{ comment.author }} | {{ comment.created_on }}
+                <p>{{ comment.body | linebreaks }}</p>
+            {% endfor %}
+        </div>
+    </div>
 
-    <p><h4>Submit Comment</h4></p>
+    <p><h5>Submit Comment</h5></p>
     {% if user.is_authenticated %}
     <form method="post" style="margin-top: 1.3em;">
         {{ form.as_p }}

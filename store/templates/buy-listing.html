@@ -15,12 +15,19 @@
         <div class="col-sm-4">
             <div class="">
             <h5>Your Shipping Address</h5>
-            <p>Buyer shipping address must be set to calculate final price</p>
+            {% if user_address %}
+            <p>{{user_address.street1}}</p>
+            <p>{{user_address.street2}}</p>
+            <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
+            <p><a href="{% url 'user-profile' %}">Change Address</a></p>
+            {% else %}
+                <p>Shipping address must be set to calculate final price.</p>
+            {% endif %}
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <h5>Payment Breakdown</h5>
             <p>Payment to Seller</p>
             <p>Swappa Sale Fee</p>
