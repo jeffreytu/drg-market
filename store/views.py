@@ -32,7 +32,7 @@ def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
     comments = Comment.objects.filter(listing=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
-    print(gallery.values())
+
     user = request.user
 
     if request.method == 'POST':

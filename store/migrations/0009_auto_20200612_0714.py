@@ -16,9 +16,4 @@ class Migration(migrations.Migration):
             name='date_created',
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
-        migrations.AlterField(
-            model_name='listing',
-            name='images',
-            field=models.ImageField(blank=True, null=True, upload_to=store.models.Listing.img_directory_path),
-        ),
     ]
