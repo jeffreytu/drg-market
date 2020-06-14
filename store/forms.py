@@ -1,9 +1,6 @@
 from django import forms
 from .models import Listing, Comment
 
-# class FileFieldForm(forms.Form):
-#     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
 class CreateListingForm(forms.ModelForm):
     gallery = forms.ImageField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))
 

@@ -12,11 +12,13 @@
     <p>{{listing.price}}</p>
 
     {% if gallery %}
+        <p>
         {% for imagelist in gallery %}
-            <p><a href="{{imagelist.image.url}}"><img style="width:200px" src="{{imagelist.image.url}}"></a></p>
+            <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
         {% endfor %}
     {% else %}
-        <p>No images available</p>
+        <span>No images available</span>
+        </p>
     {% endif %}
 
     {% for comment in comments %}
