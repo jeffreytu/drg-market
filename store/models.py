@@ -34,6 +34,15 @@ class Listing(models.Model):
     def __str__(self):
         return self.title
 
+
+class Gallery(models.Model):
+
+    def img_directory_path(instance, filename):
+        return 'l_{0}/{1}'.format(instance.listing.id, filename)
+
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    image = models.FileField(upload_to=img_directory_path, blank=True, null=True)
+
 class Comment(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

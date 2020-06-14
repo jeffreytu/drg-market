@@ -7,6 +7,13 @@
         <form method="POST" action="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
+            {% comment %} {% if gallery %}
+                {% for imagelist in gallery %}
+                    <p><a href="{{imagelist.image.url}}"><img style="width:200px" src="{{imagelist.image.url}}"></a></p>
+                {% endfor %}
+            {% else %}
+                <p>No images available</p>
+            {% endif %} {% endcomment %}
             <button type="submit" class="save btn btn-success">Save</button>
             <a href="{% url 'remove-listing' listing.id %}"><button type="button" class="remove btn btn-danger">Remove Listing</button></a>
         </form>

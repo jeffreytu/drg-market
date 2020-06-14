@@ -4,7 +4,9 @@
     {% if user.is_authenticated %}
         <form method="POST" action="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            <table class="table table-hover listing-form">
+            {{ form.as_table }}
+            </table>
             <button type="submit" class="save btn btn-success">Save</button>
         </form>
         {% if form.error %}

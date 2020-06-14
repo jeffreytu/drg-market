@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Product, Listing, Comment, CustomUser
+from .models import Product, Listing, Comment, CustomUser, Gallery
 from .forms import CreateListingForm, CommentForm
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import FormView
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
@@ -30,6 +31,8 @@ def productDetail(request, sku):
 def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
     comments = Comment.objects.filter(listing=listing_id)
+    gallery = Gallery.objects.filter(listing=listing_id)
+    print(gallery.values())
     user = request.user
 
     if request.method == 'POST':
@@ -46,35 +49,43 @@ def productListingDetail(request,listing_id):
         'form': form,
         'comments': comments,
         'listing': listing,
+        'gallery': gallery,
     }
 
     return render(request, 'product_listing.html', context)
 
 def editListing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
+    gallery = Gallery.objects.filter(listing=listing_id)
     if request.method == 'GET':
         form = CreateListingForm(instance=listing)
     elif request.method == 'POST':
-            form = CreateListingForm(data=request.POST, instance=listing, user=request.user)
-            files = request.FILES.getlist('file_field')
+            form = CreateListingForm(data=request.POST, instance=listing, user=request.user, files=request.FILES)
+            files = request.FILES.getlist('gallery')
             if form.is_valid():
-                form.save()
-                return redirect('edit-listing', listing_id=listing_id)
+                editlisting = form.save(commit=False)
+                for f in files:
+                    gallery = Gallery(listing=editlisting, image=f)
+                    gallery.save()
+                editlisting.save()
     context = {
         'form': form,
         'listing': listing,
+        'gallery': gallery,
         }
     return render(request, 'product_listing_edit.html', context)
 
 def createListing(request):
     if request.method == 'POST':
-        form = CreateListingForm(data=request.POST, user=request.user)
-        files = request.FILES.getlist('file_field')
+        form = CreateListingForm(data=request.POST, user=request.user, files=request.FILES)
+        files = request.FILES.getlist('gallery')
         if form.is_valid():
-            # for f in files:
-            #     instance = Image(image=file)  # match the model.
-            #     instance.save()
-            form.save()
+            listing = form.save(commit=False)
+            listing.save()
+            if request.FILES:
+                for f in files:
+                    gallery = Gallery(listing=listing, image=f)
+                    gallery.save()
             return redirect('create-listing')
     else:
         form = CreateListingForm(initial={'seller':request.user.id})
@@ -90,3 +101,19 @@ def deleteListing(request, listing_id):
         'listing': listing
     }
     return render(request, 'product_listing_delete.html', context)
+
+# class FileFieldView(FormView):
+#     form_class = FileFieldForm
+#     template_name = 'sell.html'  # Replace with your template.
+#     success_url = 'create-listing'  # Replace with your URL or reverse().
+
+#     def post(self, request, *args, **kwargs):
+#         form_class = self.get_form_class()
+#         form = self.get_form(form_class)
+#         files = request.FILES.getlist('file_field')
+#         if form.is_valid():
+#             for f in files:
+#                 print(f)
+#             return self.form_valid(form)
+#         else:
+#             return self.form_invalid(form)

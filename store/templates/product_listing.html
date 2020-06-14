@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-{{ MEDIA_URL }}
+
     <p>Sold by: {{listing.seller}}
         {% if user.id == listing.seller.id %}
             <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
@@ -10,27 +10,29 @@
     </p>
     <p>{{listing.title}}</p>
     <p>{{listing.price}}</p>
-    {% if listing.images %}
-        <p><a href="{{listing.images.url}}"><img style="width:200px" src="{{listing.images.url}}"></a></p>
+
+    {% if gallery %}
+        {% for imagelist in gallery %}
+            <p><a href="{{imagelist.image.url}}"><img style="width:200px" src="{{imagelist.image.url}}"></a></p>
+        {% endfor %}
     {% else %}
         <p>No images available</p>
     {% endif %}
 
+    {% for comment in comments %}
+        {{ comment.author }} | {{ comment.created_on }}
+        <p>{{ comment.body | linebreaks }}</p>
+    {% endfor %}
 
-{% for comment in comments %}
-    {{ comment.author }} | {{ comment.created_on }}
-    <p>{{ comment.body | linebreaks }}</p>
-{% endfor %}
-
-<p><h4>Submit Comment</h4></p>
-{% if user.is_authenticated %}
-<form method="post" style="margin-top: 1.3em;">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-success ">Submit Comment</button>
-</form>
-{% else %}
-    <p>You must be signed in to comment. Login or Signup</p>
-{% endif %}
+    <p><h4>Submit Comment</h4></p>
+    {% if user.is_authenticated %}
+    <form method="post" style="margin-top: 1.3em;">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success ">Submit Comment</button>
+    </form>
+    {% else %}
+        <p>You must be signed in to comment. Login or Signup</p>
+    {% endif %}
 
 {% endblock content %}
