@@ -20,15 +20,39 @@ class Product(models.Model):
 
 class Listing(models.Model):
 
+    STATUS = (
+        (0, 'Inactive'),
+        (1, 'Active'),
+        (2, 'Pending'),
+        (3, 'Removed'),
+        (4, 'Sold'),
+    )
+
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=80, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
+    status = models.IntegerField('Status', choices=STATUS, default=0)
+    buyer = models.IntegerField('Status', choices=STATUS, default=0)
 
     def __str__(self):
         return self.title
+
+class Transaction(models.Model):
+
+    STATUS = (
+        (0, 'Incomplete'),
+        (1, 'Complete'),
+        (2, 'Pending'),
+    )
+
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='seller')
+    buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='buyer')
+    status = models.IntegerField('Status', choices=STATUS, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 
 class Gallery(models.Model):

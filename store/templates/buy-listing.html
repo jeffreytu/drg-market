@@ -37,6 +37,10 @@
             <p>Total</p>
         </div>
     </div>
-    <button class="btn btn-success" type="button">Pay Now using PayPal</button>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-success" type="submit">Pay Now using PayPal</button>
+    </form>
 
 {% endblock content %}

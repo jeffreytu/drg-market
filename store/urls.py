@@ -10,4 +10,5 @@ urlpatterns = [
     path('listing/<int:listing_id>/edit/', editListing, name='edit-listing'),
     path('listing/<int:listing_id>/remove/', deleteListing, name='remove-listing'),
     path('listing/<int:listing_id>/buy/', buyListing, name='buy-listing'),
+    path('listing/<int:listing_id>/buy/complete', transaction, name='buy-transaction'),
 ]

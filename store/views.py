@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Listing, Comment, CustomUser, Gallery
 from users.models import UserAddress
-from .forms import CreateListingForm, CommentForm
+from .forms import CreateListingForm, CommentForm, TransactionForm
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
@@ -109,9 +109,51 @@ def buyListing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
     user_address = UserAddress.objects.get(user__id=user.id)
+    buyer = request.user
+    listing = Listing.objects.get(id=listing_id)
+    seller = listing.seller
+
+    if request.method == "POST":
+        form = TransactionForm(data=request.POST)
+        print('we have a transaction!')
+        if form.is_valid():
+            form.save()
+            return redirect('buy-transaction', listing_id=listing_id)
+    else:
+        form = TransactionForm(initial={
+            'buyer': buyer,
+            'listing': listing,
+            'seller': seller,
+            'status': 1
+                })
+
     context = {
         'listing': listing,
         'gallery': gallery,
-        'user_address': user_address
+        'user_address': user_address,
+        'form': form
     }
     return render(request, 'buy-listing.html', context)
+
+def transaction(request, listing_id):
+    buyer = request.user
+    listing = Listing.objects.get(id=listing_id)
+    seller = listing.seller
+
+    if request.method == "POST":
+        form = TransactionForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('buy-transaction')
+    else:
+        form = TransactionForm(initial={
+            'buyer': buyer,
+            'listing': listing,
+            'seller': seller,
+            })
+
+    context = {
+        'form': form,
+        'listing': listing
+    }
+    return render(request, 'buy-transaction.html', context)

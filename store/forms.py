@@ -1,5 +1,11 @@
 from django import forms
-from .models import Listing, Comment
+from .models import Listing, Comment, Transaction
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ('__all__')
+
 
 class CreateListingForm(forms.ModelForm):
     gallery = forms.ImageField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))
