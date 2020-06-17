@@ -1,14 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Listings for sale:
-    {% for listing in listings %}
-        <p>
-            <a href="{% url 'product-listing' listing.id %}">{{ listing }}</a>
-            <span> | <a href="{% url 'edit-listing' listing.id %}">edit</a></span>
-            <span> | <a href="{% url 'remove-listing' listing.id %}">remove</a></span>
-        </p>
-    {% endfor %}
+        <h4>Listings For Sale</h4>
+        {% for listing in listings %}
+            {% if listing.status == 1 %}
+            <p>
+                <a href="{% url 'product-listing' listing.id %}">{{ listing }}</a>
+                <span> | <a href="{% url 'edit-listing' listing.id %}">edit</a></span>
+                <span> | <a href="{% url 'remove-listing' listing.id %}">remove</a></span>
+
+            </p>
+            {% endif %}
+        {% endfor %}
+        <h4>Pending Listings</h4>
+        {% for listing in listings %}
+            {% if listing.status == 2 %}
+            <p>
+                <a href="{% url 'product-listing' listing.id %}">{{ listing }}</a>
+                <span> | <a href="{% url 'edit-listing' listing.id %}">edit</a></span>
+                <span> | <a href="{% url 'remove-listing' listing.id %}">remove</a></span>
+
+            </p>
+            {% endif %}
+        {% endfor %}
+        <h4>Sold Listings</h4>
+        {% for listing in listings %}
+            {% if listing.status == 4 %}
+                <p><a href="{% url 'product-listing' listing.id %}">{{ listing }}</a></p>
+            {% endif %}
+        {% endfor %}
 
     Browse other listings:
     {% for product in products %}
