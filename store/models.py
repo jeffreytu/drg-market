@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Product(models.Model):
@@ -35,7 +36,6 @@ class Listing(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
     status = models.IntegerField('Status', choices=STATUS, default=0)
-    buyer = models.IntegerField('Status', choices=STATUS, default=0)
 
     def __str__(self):
         return self.title
@@ -77,3 +77,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.author)
+
+
+# Signals
+def update_listing(sender, instance, created, **kwargs):
+    obj = Listing.objects.get(id=instance.listing.id)
+    obj.status = 4
+    obj.save()
+post_save.connect(update_listing, sender=Transaction)

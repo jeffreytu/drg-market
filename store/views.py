@@ -131,7 +131,7 @@ def buyListing(request, listing_id):
         'listing': listing,
         'gallery': gallery,
         'user_address': user_address,
-        'form': form
+        'form': form,
     }
     return render(request, 'buy-listing.html', context)
 
