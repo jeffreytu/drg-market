@@ -108,10 +108,14 @@ def buyListing(request, listing_id):
     user = request.user
     listing = Listing.objects.get(id=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
-    user_address = UserAddress.objects.get(user__id=user.id)
     buyer = request.user
     listing = Listing.objects.get(id=listing_id)
     seller = listing.seller
+
+    try:
+        user_address = UserAddress.objects.get(user__id=user.id)
+    except UserAddress.DoesNotExist:
+        user_address = None
 
     if request.method == "POST":
         form = TransactionForm(data=request.POST)
