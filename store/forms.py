@@ -6,6 +6,14 @@ class TransactionForm(forms.ModelForm):
         model = Transaction
         fields = ('__all__')
 
+    def __init__(self, *args, **kwargs):
+        self.listingStatus = kwargs.pop('status', None)
+        super(TransactionForm, self).__init__(*args, **kwargs)
+    
+    def clean(self):
+        if self.listingStatus == 4:
+            raise forms.ValidationError('Listing has already been sold.')
+        return self.cleaned_data
 
 class CreateListingForm(forms.ModelForm):
     gallery = forms.ImageField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))

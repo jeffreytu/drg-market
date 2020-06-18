@@ -120,7 +120,7 @@ def buyListing(request, listing_id):
         user_address = None
 
     if request.method == "POST":
-        form = TransactionForm(data=request.POST)
+        form = TransactionForm(data=request.POST, status=listing.status)
         print('we have a transaction!')
         if form.is_valid():
             form.save()
