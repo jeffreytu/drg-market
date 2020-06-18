@@ -109,8 +109,10 @@ def buyListing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
     buyer = request.user
-    listing = Listing.objects.get(id=listing_id)
     seller = listing.seller
+
+    if listing.status == 4:
+        return redirect('product-listing', listing_id)
 
     try:
         user_address = UserAddress.objects.get(user__id=user.id)
@@ -125,11 +127,11 @@ def buyListing(request, listing_id):
             return redirect('buy-transaction', listing_id=listing_id)
     else:
         form = TransactionForm(initial={
-            'buyer': buyer,
-            'listing': listing,
-            'seller': seller,
-            'status': 1
-                })
+        'buyer': buyer,
+        'listing': listing,
+        'seller': seller,
+        'status': 1
+            })
 
     context = {
         'listing': listing,
