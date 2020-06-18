@@ -8,11 +8,14 @@ class TransactionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.listingStatus = kwargs.pop('status', None)
+        self.userAddress = kwargs.pop('address', None)
         super(TransactionForm, self).__init__(*args, **kwargs)
     
     def clean(self):
         if self.listingStatus == 4:
             raise forms.ValidationError('Listing has already been sold.')
+        elif self.userAddress == None:
+            raise forms.ValidationError('You must set a shipping address.')
         return self.cleaned_data
 
 class CreateListingForm(forms.ModelForm):

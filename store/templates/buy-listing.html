@@ -21,7 +21,7 @@
             <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
             <p><a href="{% url 'user-profile' %}">Change Address</a></p>
             {% else %}
-                <p>Shipping address must be set to calculate final price.</p>
+                <p>Shipping address must be set to calculate final price. <a href="">Set Address</a></p>
             {% endif %}
             </div>
         </div>
