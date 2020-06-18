@@ -19,8 +19,13 @@ class SignUpView(CreateView):
 
 def userProfileView(request):
     user = request.user
-    # Grab user object from CustomerUser
-    userAddress = UserAddress.objects.get(user__id=user.id)
+
+    try:
+        # Grab user object from CustomerUser
+        userAddress = UserAddress.objects.get(user__id=user.id)
+    except UserAddress.DoesNotExist:
+        userAddress = None
+
     if request.method == "POST":
         form_user = CustomUserChangeForm(request.POST, instance=user)
         form_address = ChangeAddressForm(request.POST, instance=userAddress)
@@ -30,8 +35,10 @@ def userProfileView(request):
             form_address.user = user
             form_address.save()
             return redirect('user-profile')
-    form_user = CustomUserChangeForm(instance=user)
-    form_address = ChangeAddressForm(instance=userAddress)
+    else:
+        form_user = CustomUserChangeForm(instance=user)
+        form_address = ChangeAddressForm(instance=userAddress)
+        
     context = {
         'form_user': form_user,
         'form_address': form_address
