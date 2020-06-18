@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <h4>Listings For Sale</h4>
+        <h4>For Sale</h4>
         {% for listing in listings %}
             {% if listing.status == 1 %}
             <p>
@@ -12,7 +12,7 @@
             </p>
             {% endif %}
         {% endfor %}
-        <h4>Pending Listings</h4>
+        <h4>Pending</h4>
         {% for listing in listings %}
             {% if listing.status == 2 %}
             <p>
@@ -23,14 +23,19 @@
             </p>
             {% endif %}
         {% endfor %}
-        <h4>Sold Listings</h4>
+        <h4>Sold</h4>
         {% for listing in listings %}
             {% if listing.status == 4 %}
                 <p><a href="{% url 'product-listing' listing.id %}">{{ listing }}</a></p>
             {% endif %}
         {% endfor %}
 
-    Browse other listings:
+        <h4>Purchased</h4>
+        {% for transaction in transactions %}
+            <p><a href="{% url 'product-listing' transaction.listing.id %}">{{ transaction.listing }}</a></p>
+        {% endfor %}
+
+    <h5>Browse other listings:</h5>
     {% for product in products %}
         <p><a href="{% url 'product-listing' product.id %}">{{ product }}</a></p>
     {% endfor %}    

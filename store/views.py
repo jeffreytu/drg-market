@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Listing, Comment, CustomUser, Gallery
+from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction
 from users.models import UserAddress
 from .forms import CreateListingForm, CommentForm, TransactionForm
 from django.forms import ModelForm, ValidationError
@@ -9,9 +9,12 @@ from django.views.generic.edit import FormView
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
     products = Listing.objects.exclude(seller=request.user.id)
+    transactions = Transaction.objects.filter(buyer=request.user.id)
+
     context = {
         'listings': listings,
         'products': products,
+        'transactions': transactions,
         }
     return render(request, 'user_home.html', context)
 
