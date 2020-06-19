@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 from django.db.models.signals import post_save
+from mptt.models import MPTTModel, TreeForeignKey
 
 # Create your models here.
 class Product(models.Model):
@@ -15,6 +16,7 @@ class Product(models.Model):
     title = models.CharField('Title', max_length=80, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     category_num = models.IntegerField('Category Number', choices=PROD_CATEGORY, default=-1)
+    category = TreeForeignKey('Category',null=True,blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.get_category_num_display()
@@ -78,6 +80,15 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.author)
 
+class Category(MPTTModel):
+    name = models.CharField(max_length=50, unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def __str__(self):
+        return self.name
 
 # Signals
 def update_listing(sender, instance, created, **kwargs):

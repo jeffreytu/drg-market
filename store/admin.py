@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Product, Listing, Comment, Gallery
+from mptt.admin import MPTTModelAdmin
+from .models import Product, Listing, Comment, Gallery, Category
+
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -24,3 +26,5 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     pass
+
+admin.site.register(Category, MPTTModelAdmin)

@@ -21,7 +21,8 @@
             <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
             <p><a href="{% url 'user-profile' %}">Change Address</a></p>
             {% else %}
-                <p>Shipping address must be set to calculate final price. <a href="">Set Address</a></p>
+                <p>Shipping address must be set to calculate final price.
+                <a data-toggle="modal" href="#setAddress">Set Address</a></p>
             {% endif %}
             </div>
         </div>
@@ -43,5 +44,27 @@
         {{form_listing.as_p}}
         <button class="btn btn-success" type="submit">Pay Now using PayPal</button>
     </form>
+
+
+<div class="modal fade" id="setAddress" tabindex="-1" role="dialog" aria-labelledby="setAddressLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="setAddressLabel">Set Shipping Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" class="post-form" action="">
+            {% csrf_token %}
+            {{form_address.as_p}}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

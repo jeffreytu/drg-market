@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction
 from users.models import UserAddress
 from .forms import CreateListingForm, CommentForm, TransactionForm
+from users.forms import ChangeAddressForm
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
@@ -121,6 +122,7 @@ def buyListing(request, listing_id):
         user_address = UserAddress.objects.get(user__id=user.id)
     except UserAddress.DoesNotExist:
         user_address = None
+        form_address = ChangeAddressForm()
 
     if request.method == "POST":
         form = TransactionForm(data=request.POST, status=listing.status, address=user_address)
@@ -141,6 +143,7 @@ def buyListing(request, listing_id):
         'gallery': gallery,
         'user_address': user_address,
         'form': form,
+        'form_address': form_address,
     }
     return render(request, 'buy-listing.html', context)
 

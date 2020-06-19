@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'store.apps.StoreConfig',
+    'mptt',
 ]
 
 MIDDLEWARE = [
