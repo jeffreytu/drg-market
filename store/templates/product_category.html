@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {{category}}
+    {% for listing in listings %}
+        {% if listing.status != 4 %}
+            <p><a href="{% url 'product-listing' listing.id %}">{{listing.seller}} - {{listing}}</a></p>
+        {% endif %}
+    {% endfor %}
+
+{% endblock content %}

@@ -36,7 +36,7 @@ class Listing(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    category = models.ForeignKey(Product, on_delete=models.CASCADE, default=-1)
+    category = TreeForeignKey('Category',null=True,blank=True, on_delete=models.CASCADE)
     status = models.IntegerField('Status', choices=STATUS, default=0)
 
     def __str__(self):
@@ -82,7 +82,9 @@ class Comment(models.Model):
 
 class Category(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(blank=True, null=True, default=None)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    description = models.TextField(blank=True, null=True)
 
     class MPTTMeta:
         order_insertion_by = ['name']

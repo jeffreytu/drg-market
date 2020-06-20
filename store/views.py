@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction
+from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction, Category
 from users.models import UserAddress
 from .forms import CreateListingForm, CommentForm, TransactionForm
 from users.forms import ChangeAddressForm
@@ -21,11 +21,28 @@ def userHome(request):
 
 def productList(request):
     products = Product.objects.all()
-    context = {'products': products}
+    categories = Category.objects.all()
+    context = {
+        'products': products,
+        'categories': categories
+    }
     return render(request, 'product_list.html', context)
 
-def productDetail(request, sku):
-    product = Product.objects.get(sku=sku)
+def productCategoryView(request, the_slug):
+    test = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=False)
+    print(test)
+    parent = None
+    root = Category.objects.all()
+    category = Category.objects.get(slug=the_slug)
+    listings = Listing.objects.filter(category=category.id)
+    context = {
+        'category': category,
+        'listings': listings,
+    }
+    return render(request, 'product_category.html', context)
+
+def productDetail(request, slug):
+    products = Product.objects.filter(category__slug=slug)
     listings = Listing.objects.filter(category__sku=sku)
     context = {
         'product': product,

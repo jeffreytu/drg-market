@@ -6,4 +6,8 @@
         <p><a href="{% url 'product-detail' product.sku %}">{{product.title}} - {{product.sku}}</a></p>
     {% endfor %}
 
+    {% for category in categories %}
+        <p>{{category}}</p>
+    {% endfor %}
+
 {% endblock content %}
