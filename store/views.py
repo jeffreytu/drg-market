@@ -29,15 +29,13 @@ def productList(request):
     return render(request, 'product_list.html', context)
 
 def productCategoryView(request, the_slug):
-    test = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=False)
-    print(test)
-    parent = None
-    root = Category.objects.all()
+    breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
     category = Category.objects.get(slug=the_slug)
     listings = Listing.objects.filter(category=category.id)
     context = {
         'category': category,
         'listings': listings,
+        'breadcrum': breadcrum,
     }
     return render(request, 'product_category.html', context)
 
