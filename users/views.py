@@ -13,8 +13,9 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
 
     def form_valid(self, form):
+        user = self.request.user
         group = Group.objects.get(name='customer')
-        self.object.groups.add(group)
+        user.groups.add(group)
         return super(SignUpView, self).form_valid(form)
 
 def userProfileView(request):
