@@ -30,10 +30,11 @@ def productList(request):
 
 def productCategoryView(request, the_slug):
     breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
-    category = Category.objects.get(slug=the_slug)
-    listings = Listing.objects.filter(category=category.id)
+    children = Category.objects.get(slug=the_slug).get_descendants(include_self=True)
+    listings = Listing.objects.filter(category__in=children)
+
     context = {
-        'category': category,
+        # 'category': category,
         'listings': listings,
         'breadcrum': breadcrum,
     }

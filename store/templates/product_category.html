@@ -4,23 +4,24 @@
 {% block content %}
 
 <style>
-    li {
+    ul.breadcrum li {
         list-style: none;
         display: inline;
     }
-    li+li:before {
+    ul.breadcrum li+li:before {
         content: ">"
     }
 </style>
+    <ul class="breadcrum">
+        {% for category in breadcrum %}
+            <li><a href="{% url 'product-category' category.slug %}">{{category.name}}</a></li>
+        {% endfor %}
 
-    {% for category in breadcrum %}
-        <li><a href="{% url 'product-category' category.slug %}">{{category.name}}</a></li>
-    {% endfor %}
-
-    {% for listing in listings %}
-        {% if listing.status != 4 %}
-            <p><a href="{% url 'product-listing' listing.id %}">{{listing.seller}} - {{listing}}</a></p>
-        {% endif %}
-    {% endfor %}
+        {% for listing in listings %}
+            {% if listing.status != 4 %}
+                <p><a href="{% url 'product-listing' listing.id %}">{{listing.seller}} - {{listing}}</a></p>
+            {% endif %}
+        {% endfor %}
+    </ul>
 
 {% endblock content %}
