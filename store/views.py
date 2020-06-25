@@ -23,7 +23,6 @@ def productList(request):
     products = Product.objects.all()
     categories = Category.objects.all()
     context = {
-        'products': products,
         'categories': categories
     }
     return render(request, 'product_list.html', context)
@@ -34,7 +33,6 @@ def productCategoryView(request, the_slug):
     listings = Listing.objects.filter(category__in=children)
 
     context = {
-        # 'category': category,
         'listings': listings,
         'breadcrum': breadcrum,
     }
