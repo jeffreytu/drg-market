@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        {% for category in categories %}
+            <p><a href="{% url 'product-category' category.slug %}">{{category}}</a></p>
+        {% endfor %}
+
+    {% load mptt_tags %}
+    <ul>
+        {% recursetree categories %}
+            <li>
+                {{ node.name }}
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
+
+    {% else %}
+    welcome to drg market
+    {% endif %}
+    
+{% endblock %}

@@ -19,13 +19,13 @@ def userHome(request):
         }
     return render(request, 'user_home.html', context)
 
-def productList(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()
-    context = {
-        'categories': categories
-    }
-    return render(request, 'product_list.html', context)
+# def productList(request):
+#     products = Product.objects.all()
+#     categories = Category.objects.all()
+#     context = {
+#         'categories': categories
+#     }
+#     return render(request, 'product_list.html', context)
 
 def productCategoryView(request, the_slug):
     breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
@@ -184,3 +184,11 @@ def transaction(request, listing_id):
         'listing': listing
     }
     return render(request, 'buy-transaction.html', context)
+
+def shopHome(request):
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    context = {
+        'categories': categories
+    }
+    return render(request, 'shop-home.html', context)

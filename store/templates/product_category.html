@@ -13,6 +13,7 @@
     }
 </style>
     <ul class="breadcrum">
+            <li><a href="{% url 'shop-home' %}">Home</a></li>
         {% for category in breadcrum %}
             <li><a href="{% url 'product-category' category.slug %}">{{category.name}}</a></li>
         {% endfor %}
