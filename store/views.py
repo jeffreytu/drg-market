@@ -151,6 +151,7 @@ def buyListing(request, listing_id):
         'seller': seller,
         'status': 1
             })
+        form_address = ChangeAddressForm()
 
     context = {
         'listing': listing,
