@@ -30,11 +30,13 @@ def userHome(request):
 def productCategoryView(request, the_slug):
     breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
     children = Category.objects.get(slug=the_slug).get_descendants(include_self=True)
+    categories = Category.objects.get(slug=the_slug).get_descendants()
     listings = Listing.objects.filter(category__in=children)
 
     context = {
         'listings': listings,
         'breadcrum': breadcrum,
+        'categories': categories,
     }
     return render(request, 'product_category.html', context)
 
