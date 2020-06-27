@@ -3,55 +3,77 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-sm-8">
-            <h4>{{listing.title}}</h4>
-            <p>Sold by: {{listing.seller}}
-                {% if user.id == listing.seller.id and listing.status != 4 %}
-                    <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
+    <h4>{{listing.title}}</h4>
+    <div class="listing-detail-container">
+        <div class="row">
+            <div class="col-md-6">
+                {% if gallery %}
+                    <p>
+                    {% for imagelist in gallery|slice:"5" %}
+                        <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
+                    {% endfor %}
+                {% else %}
+                    <span>No images available</span>
+                    </p>
                 {% endif %}
-            </p>
-        </div>
-        <div class="col-sm-4">
-            <p><h4>${{listing.price}}</h4></p>
-            {% if listing.status != 4 %}
-            <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
-            {% else %}
-            <div><button class="btn btn-secondary btn-lg">Sold</button></div>
-            {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div>Sold by: {{listing.seller}}
+                    {% if user.id == listing.seller.id and listing.status != 4 %}
+                        <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
+                    {% endif %}
+                </div>
+                <div>{{listing.description}}</div>
+
+                <p><h4>${{listing.price}}</h4></p>
+                {% if listing.status != 4 %}
+                <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+                {% else %}
+                <div><button class="btn btn-secondary btn-lg">Sold</button></div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
+
+    <h4>Comments</h4>
     <div class="row">
-        <div class="col-sm">
-            {% if gallery %}
-                <p>
-                {% for imagelist in gallery %}
-                    <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
-                {% endfor %}
-            {% else %}
-                <span>No images available</span>
-                </p>
-            {% endif %}
-            
+        <div class="col-md-8">
+            <div class="comment-container">
             {% for comment in comments %}
-                {{ comment.author }} | {{ comment.created_on }}
-                <p>{{ comment.body | linebreaks }}</p>
+                <div class="comment-card">
+                    <div>{{ comment.author }}</div>
+                    <div>{{ comment.created_on }}</div>
+                    <hr>
+                    <div>{{ comment.body | linebreaks }}</div>
+                </div>
             {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4">
         </div>
     </div>
 
+    
     {% if listing.status != 4 %}
-        <p><h5>Submit Comment</h5></p>
-        {% if user.is_authenticated %}
-        <form method="post" style="margin-top: 1.3em;">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success ">Submit Comment</button>
-        </form>
-        {% else %}
-            <p>You must be signed in to comment. Login or Signup</p>
-        {% endif %}
+    <div class="comment-submit-container">
+        <h5>Submit Comment</h5>
+        <div class="row">
+            <div class="col-md-8">
+                {% if user.is_authenticated %}
+                <form method="post">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success ">Submit Comment</button>
+                </form>
+            </div>
+            {% else %}
+                <p>You must be signed in to comment. Login or Signup</p>
+            {% endif %}
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
     {% endif %}
 
 {% endblock content %}
