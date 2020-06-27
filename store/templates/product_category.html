@@ -10,27 +10,50 @@
         {% endfor %}
     </ul>
 
-    <h4>Shop</h4>
-    <div class="row category-container">
-        {% recursetree categories %}
-            <div class="col-md-6">
-                <a href="{% url 'product-category' node.slug %}">
-                    <div class="category-card">
-                        {{ node.name }}
-                    </div>
-                </a>
-            </div>
-        {% endrecursetree %}
-    </ul>
-    </div>
+    {% if categories %}
+        <h4>Shop</h4>
+        <div class="row category-container">
+            {% recursetree categories %}
+                <div class="col-md-6">
+                    <a href="{% url 'product-category' node.slug %}">
+                        <div class="category-card">
+                            {{ node.name }}
+                        </div>
+                    </a>
+                </div>
+            {% endrecursetree %}
+        </ul>
+        </div>
+    {% endif %}
 
-    <h4>Listings</h4>
-    <div class="row listing-container">
-    {% for listing in listings %}
-        {% if listing.status != 4 %}
-            <a href="{% url 'product-listing' listing.id %}"><div class="listing-card">{{listing.seller}} - {{listing}}</div></a>
+    {% if not categories %}
+        <h4>Listings</h4>
+        <div class="listing-container">
+        {% if listings %}
+            {% for listing in listings %}
+                {% if listing.status != 4 %}
+                    <a href="{% url 'product-listing' listing.id %}">
+                        <div class="row listing-card no-gutters">
+                            <div class="col-md-4">
+                                {{listing.seller}}
+                            </div>
+                            <div class="col-md-6">
+                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
+                                <div class="listing-description">{{listing.description}}</div>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <div class="listing-price">
+                                    {{listing.price}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="page-message"><span>No listings found</span></div>
         {% endif %}
-    {% endfor %}
-    </div>
+    {% endif %}
 
 {% endblock content %}
