@@ -4,6 +4,13 @@
 {% block content %}
 
     <h4>{{listing.title}}</h4>
+        {% if user.id == listing.seller.id and listing.status != 4 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{% url 'edit-listing' listing.id %}">Edit</a>
+                </div>
+            </div>
+        {% endif %}
     <div class="listing-detail-container">
         <div class="row">
             <div class="col-md-6">
@@ -19,9 +26,6 @@
             </div>
             <div class="col-md-6">
                 <div>Sold by: {{listing.seller}}
-                    {% if user.id == listing.seller.id and listing.status != 4 %}
-                        <span> | <a href="{% url 'edit-listing' listing.id %}">Edit this listing</a></span>
-                    {% endif %}
                 </div>
                 <div>{{listing.description}}</div>
 
