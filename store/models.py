@@ -6,20 +6,10 @@ from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 class Product(models.Model):
 
-    PROD_CATEGORY = (
-        (-1, 'Unassigned'),
-        (2, 'Apple iPhone 11'),
-        (3, 'Samsung Galaxy S20'),
-    )
-
     sku = models.CharField('SKU', max_length=30, null=True, blank=False)
     title = models.CharField('Title', max_length=80, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
-    category_num = models.IntegerField('Category Number', choices=PROD_CATEGORY, default=-1)
     category = TreeForeignKey('Category',null=True,blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.get_category_num_display()
 
 class Listing(models.Model):
 
@@ -38,6 +28,7 @@ class Listing(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     category = TreeForeignKey('Category',null=True,blank=True, on_delete=models.CASCADE)
     status = models.IntegerField('Status', choices=STATUS, default=0)
+    product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -85,6 +76,7 @@ class Category(MPTTModel):
     slug = models.SlugField(blank=True, null=True, default=None)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='product', blank=True, null=True)
 
     class MPTTMeta:
         order_insertion_by = ['name']

@@ -14,10 +14,13 @@
         <h4>Shop</h4>
         <div class="row category-container">
             {% recursetree categories %}
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="{% url 'product-category' node.slug %}">
                         <div class="category-card">
-                            {{ node.name }}
+                            {% if node.image %}
+                                <img src="{{ node.image.url }}" width="70px">
+                            {% endif %}
+                            <div class="category-name">{{ node.name }}</div>
                         </div>
                     </a>
                 </div>
