@@ -9,11 +9,13 @@ from django.views.generic.edit import FormView
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
-    transactions = Transaction.objects.filter(buyer=request.user.id)
+    purchased = Transaction.objects.filter(buyer=request.user.id)
+    sold = Transaction.objects.filter(seller=request.user.id)
 
     context = {
         'listings': listings,
-        'transactions': transactions,
+        'purchased': purchased,
+        'sold': sold,
         }
     return render(request, 'user_home.html', context)
 
