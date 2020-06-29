@@ -9,23 +9,13 @@ from django.views.generic.edit import FormView
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
-    products = Listing.objects.exclude(seller=request.user.id)
     transactions = Transaction.objects.filter(buyer=request.user.id)
 
     context = {
         'listings': listings,
-        'products': products,
         'transactions': transactions,
         }
     return render(request, 'user_home.html', context)
-
-# def productList(request):
-#     products = Product.objects.all()
-#     categories = Category.objects.all()
-#     context = {
-#         'categories': categories
-#     }
-#     return render(request, 'product_list.html', context)
 
 def productCategoryView(request, the_slug):
     breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
