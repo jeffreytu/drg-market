@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    {{user.first_name}}
-    {{user.last_name}}
 
     {% if user.is_authenticated %}
         <form method="POST" class="post-form">
             {% csrf_token %}
-            {{form_user.as_p}}
-            {{form_address.as_p}}
+            <h4>Profile Information</h4>
+            {{form_user|crispy}}
+            <h4>Address</h4>
+            {{form_address|crispy}}
             <button type="submit" class="save btn btn-success">Save</button>
         </form>
     {% endif %}
