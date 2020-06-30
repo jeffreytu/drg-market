@@ -28,6 +28,7 @@ class CreateListingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)
         super(CreateListingForm, self).__init__(*args, **kwargs)
+        self.fields['seller'].disabled = True
 
     def clean_seller(self):
         form_user = self.cleaned_data['seller']

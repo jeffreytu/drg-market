@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
     {% if user.is_authenticated %}
+        <h4>Listing Details</h4>
         <form method="POST" action="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            {{form|crispy}}
+
+            <h4>Pictures</h4>
             {% if gallery %}
                 <p>
                 {% for imagelist in gallery %}

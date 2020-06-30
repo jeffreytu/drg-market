@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'store.apps.StoreConfig',
     'mptt',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,5 @@ MEDIA_URL = "/media/"
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'user-home'
 LOGOUT_REDIRECT_URL = 'home'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
