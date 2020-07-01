@@ -2,8 +2,8 @@
 
 {% block content %}
     <h4>For Sale</h4>
-    <table class="table listing-table">
-        <thead>
+    <table class="table listing-table table-sm">
+        <thead class="thead-light">
             <tr>
             <th style="width:50%">Listing</th>
             <th style="width:40%">Date Created</th>
@@ -25,8 +25,8 @@
         </tbody>
     </table>
     <h4>Pending</h4>
-    <table class="table listing-table">
-        <thead>
+    <table class="table listing-table table-sm">
+        <thead class="thead-light">
             <tr>
                 <th style="width:50%">Listing</th>
                 <th style="width:40%">Date Created</th>
@@ -49,8 +49,8 @@
     </table>
 
     <h4>Sold</h4>
-    <table class="table">
-        <thead>
+    <table class="table table-sm">
+        <thead class="thead-light">
             <tr>
                 <th style="width:50%">Listing</th>
                 <th style="width:40%">Date Sold</th>
@@ -74,8 +74,8 @@
 
     <h4>Purchased</h4>
     {% if purchased %}
-        <table class="table">
-            <thead>
+        <table class="table table-sm">
+            <thead class="thead-light">
                 <tr>
                     <th style="width:50%">Listing</th>
                     <th style="width:40%">Date Purchased</th>
@@ -90,6 +90,7 @@
                     <td>{{ transaction.date }}</td>
                 </tr>
             {% endfor %}
+        </table>
     {% else %}
         <p><span>No recent purchases</span></p>
     {% endif %}
