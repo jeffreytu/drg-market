@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import CustomUser
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from mptt.models import MPTTModel, TreeForeignKey
 
 # Create your models here.
@@ -90,3 +90,6 @@ def update_listing(sender, instance, created, **kwargs):
     obj.status = 4
     obj.save()
 post_save.connect(update_listing, sender=Transaction)
+
+# def create_listing(sender, instance, *args, **kwargs):
+# pre_save.connect(create_listing, sender=Listing)

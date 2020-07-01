@@ -24,11 +24,11 @@ class CreateListingForm(forms.ModelForm):
     class Meta:
         model = Listing
         fields = ('__all__')
+        widgets = {'seller': forms.HiddenInput()}
 
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)
         super(CreateListingForm, self).__init__(*args, **kwargs)
-        self.fields['seller'].disabled = True
 
     def clean_seller(self):
         form_user = self.cleaned_data['seller']

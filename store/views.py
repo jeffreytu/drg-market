@@ -102,7 +102,7 @@ def createListing(request):
                     gallery.save()
             return redirect('create-listing')
     else:
-        form = CreateListingForm(initial={'seller':request.user.id})
+        form = CreateListingForm(initial={'seller':request.user.id, 'status':2})
     context = {'form': form}
     return render(request, 'sell.html', context)
 
