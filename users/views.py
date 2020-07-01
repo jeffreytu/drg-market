@@ -15,8 +15,8 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         user = self.request.user
         group = Group.objects.get(name='customer')
-        user.groups.add(group)
         return super(SignUpView, self).form_valid(form)
+        user.groups.add(group)
 
 def userProfileView(request):
     user = request.user
