@@ -62,7 +62,7 @@ class Gallery(models.Model):
 class Comment(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    body = models.TextField(blank=True, null=True)
+    body = models.TextField(blank=False, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:

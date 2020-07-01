@@ -11,45 +11,69 @@
                 </div>
             </div>
         {% endif %}
-    <div class="listing-detail-container">
+
         <div class="row">
             <div class="col-md-6">
+                <div class="listing-detail-container">
+                    <div>Sold by: {{listing.seller}}</div>
+                    <div>{{listing.description}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row listing-detail-container">
+                    <div class="col-md-6">
+                        <div class="listing-price"><span>${{listing.price}}</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {% if listing.status != 4 %}
+                        <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+                        {% else %}
+                        <div><button class="btn btn-secondary btn-lg">Sold</button></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <div class="row listing-detail-container">
+            <div class="col-md-3 text-center">
+                <div class="listing-cat-image">
+                    <img src="{{listing.category.image.url}}">
+                </div>
+            </div>
+            <div class="col-md-9">
                 {% if gallery %}
-                    <p>
-                    {% for imagelist in gallery|slice:"5" %}
-                        <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
-                    {% endfor %}
+                    <div class="listing-images">
+                        {% for imagelist in gallery|slice:"5" %}
+                            <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
+                        {% endfor %}
+                    </div>
                 {% else %}
                     <span>No images available</span>
                     </p>
                 {% endif %}
             </div>
-            <div class="col-md-6">
-                <div>Sold by: {{listing.seller}}
-                </div>
-                <div>{{listing.description}}</div>
-
-                <p><h4>${{listing.price}}</h4></p>
-                {% if listing.status != 4 %}
-                <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
-                {% else %}
-                <div><button class="btn btn-secondary btn-lg">Sold</button></div>
-                {% endif %}
-            </div>
         </div>
-    </div>
 
-
-    <h4>Comments</h4>
+    <h5>Comments</h5>
     <div class="row">
         <div class="col-md-8">
             <div class="comment-container">
             {% for comment in comments %}
                 <div class="comment-card">
-                    <div>{{ comment.author }}</div>
-                    <div>{{ comment.created_on }}</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>{{ comment.author }}</strong>
+                            {% if comment.author == listing.seller %}
+                                <div class="badge-seller">Seller</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 text-right">{{ comment.created_on }}</div>
+                    </div>
                     <hr>
-                    <div>{{ comment.body | linebreaks }}</div>
+                    <div class="row">
+                        <div class="col-md-12">{{ comment.body | linebreaks }}</div>
+                    </div>
                 </div>
             {% endfor %}
             </div>
