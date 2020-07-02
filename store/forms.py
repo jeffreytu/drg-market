@@ -5,6 +5,12 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ('__all__')
+        widgets = {
+            'listing': forms.HiddenInput(),
+            'buyer': forms.HiddenInput(),
+            'status': forms.HiddenInput(),
+            'seller': forms.HiddenInput()
+            }
 
     def __init__(self, *args, **kwargs):
         self.listingStatus = kwargs.pop('status', None)
