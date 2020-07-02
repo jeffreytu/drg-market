@@ -77,7 +77,7 @@ class UserAddress(models.Model):
         ('WY','Wyoming'),
     )
 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     type = models.IntegerField('Address Type', choices=ADDRESS_TYPE, default=0)
     default = models.BooleanField('Default')
     street1 = models.CharField('Street 1', max_length=255, null=True, blank=True)

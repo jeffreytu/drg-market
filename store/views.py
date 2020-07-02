@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction, Category
 from users.models import UserAddress
+from users.views import userProfileView
 from .forms import CreateListingForm, CommentForm, TransactionForm
 from users.forms import ChangeAddressForm
 from django.forms import ModelForm, ValidationError
@@ -133,11 +134,19 @@ def buyListing(request, listing_id):
         form_address = ChangeAddressForm()
 
     if request.method == "POST":
-        form = TransactionForm(data=request.POST, status=listing.status, address=user_address)
-        print('we have a transaction!')
-        if form.is_valid():
-            form.save()
-            return redirect('buy-transaction', listing_id=listing_id)
+        if 'set_useraddress' in request.POST:
+            form_address = ChangeAddressForm(data=request.POST)
+            if form_address.is_valid():
+                # To save the object, save the instance object, not the form.
+                instance = form_address.save(commit=False)
+                instance.user = user
+                instance.save()
+                return redirect('buy-listing', listing_id=listing_id)
+        elif 'transaction' in request.POST:
+            form = TransactionForm(data=request.POST, status=listing.status, address=user_address)
+            if form.is_valid():
+                form.save()
+                return redirect('buy-transaction', listing_id=listing_id)
     else:
         form = TransactionForm(initial={
         'buyer': buyer,
@@ -145,7 +154,7 @@ def buyListing(request, listing_id):
         'seller': seller,
         'status': 1
             })
-        form_address = ChangeAddressForm()
+        form_address = ChangeAddressForm(instance=user_address)
 
     context = {
         'listing': listing,
