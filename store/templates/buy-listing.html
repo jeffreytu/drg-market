@@ -20,7 +20,7 @@
             <p>{{user_address.street1}}</p>
             <p>{{user_address.street2}}</p>
             <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
-            <p><a href="{% url 'user-profile' %}">Change Address</a></p>
+            <p><a data-toggle="modal" href="#setAddress">Change Address</a></p>
             {% else %}
                 <p>Shipping address must be set to calculate final price.
                 <a data-toggle="modal" href="#setAddress">Set Address</a></p>
