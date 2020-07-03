@@ -30,33 +30,75 @@
     {% endif %}
 
     {% if not categories %}
-        <h4>Listings</h4>
-        <div class="listing-container">
-        {% if listings %}
-            {% for listing in listings %}
-                {% if listing.status != 4 %}
-                    <a href="{% url 'product-listing' listing.id %}">
-                        <div class="row listing-card no-gutters">
-                            <div class="col-md-4">
-                                {{listing.seller}}
-                            </div>
-                            <div class="col-md-6">
-                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
-                                <div class="listing-description">{{listing.description}}</div>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <div class="listing-price">
-                                    {{listing.price}}
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                {% endif %}
-            {% endfor %}
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <div class="listing-category-container">
+                    <h4>{{category_current}}</h4>
+                    <img src="{{category_current.image.url}}">
+                    <button class="btn btn-success btn-sm">Have one to sell?</button>
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% comment %} {% if active_listings %} {% endcomment %}
+                    <h4>Listings</h4>
+                    <div class="listing-container">
+                        {% if active_listings %}
+                            {% for listing in active_listings %}
+                                {% if listing.status == 1 %}
+                                    <a href="{% url 'product-listing' listing.id %}">
+                                        <div class="row listing-card no-gutters">
+                                            <div class="col-md-3">
+                                                {{listing.seller}}
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
+                                                <div class="listing-description">{{listing.description}}</div>
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <div class="listing-price">
+                                                    ${{listing.price}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div><span>No listings available.</span></div>
+                        {% endif %}
+                    </div>
+                    <h4>Recently Sold</h4>
+                    <div class="listing-container">
+                        {% if sold_listings %}
+                            {% for listing in sold_listings %}
+                                {% if listing.status == 4 %}
+                                    <a href="{% url 'product-listing' listing.id %}">
+                                        <div class="row listing-card no-gutters">
+                                            <div class="col-md-3">
+                                                {{listing.seller}}
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
+                                                <div class="listing-description">{{listing.description}}</div>
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <div class="listing-price">
+                                                    ${{listing.price}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div><span>No recently sold listings.</span></div>
+                        {% endif %}
+                    </div>
+                {% comment %} {% else %}
+                    <div><span>No Listings Found</span></div>                
+                {% endif %} {% endcomment %}
+            </div>
         </div>
-        {% else %}
-            <div class="page-message"><span>No listings found</span></div>
-        {% endif %}
     {% endif %}
 
 {% endblock content %}

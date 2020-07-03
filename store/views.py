@@ -24,12 +24,18 @@ def productCategoryView(request, the_slug):
     breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
     children = Category.objects.get(slug=the_slug).get_descendants(include_self=True)
     categories = Category.objects.get(slug=the_slug).get_descendants()
+    category_current = Category.objects.get(slug=the_slug)
     listings = Listing.objects.filter(category__in=children)
+    sold_listings = Listing.objects.filter(category__in=children).filter(status=4)
+    active_listings = Listing.objects.filter(category__in=children).filter(status=1)
+
 
     context = {
-        'listings': listings,
+        'active_listings': active_listings,
+        'sold_listings': sold_listings,
         'breadcrum': breadcrum,
         'categories': categories,
+        'category_current': category_current,
     }
     return render(request, 'product_category.html', context)
 
