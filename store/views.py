@@ -21,13 +21,14 @@ def userHome(request):
     return render(request, 'user_home.html', context)
 
 def productCategoryView(request, the_slug):
-    breadcrum = Category.objects.get(slug=the_slug).get_ancestors(ascending=False, include_self=True)
-    children = Category.objects.get(slug=the_slug).get_descendants(include_self=True)
-    categories = Category.objects.get(slug=the_slug).get_descendants()
     category_current = Category.objects.get(slug=the_slug)
-    listings = Listing.objects.filter(category__in=children)
-    sold_listings = Listing.objects.filter(category__in=children).filter(status=4)
-    active_listings = Listing.objects.filter(category__in=children).filter(status=1)
+    breadcrum = category_current.get_ancestors(ascending=False, include_self=True)
+    children = category_current.get_descendants(include_self=True)
+    categories = category_current.get_descendants()
+
+    selected_listings = Listing.objects.select_related('seller').filter(category__in=children)
+    sold_listings = selected_listings.filter(status=4)
+    active_listings = selected_listings.filter(status=1)
 
 
     context = {
