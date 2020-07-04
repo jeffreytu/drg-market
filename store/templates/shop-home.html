@@ -5,7 +5,7 @@
 {% block content %}
     {% if user.is_authenticated %}
 
-        {% for category in categories %}
+        {% comment %} {% for category in categories %}
             <p><a href="{% url 'product-category' category.slug %}">{{category}}</a></p>
         {% endfor %}
 
@@ -21,7 +21,7 @@
                 {% endif %}
             </li>
         {% endrecursetree %}
-    </ul>
+    </ul> {% endcomment %}
 
     {% else %}
     welcome to drg market
