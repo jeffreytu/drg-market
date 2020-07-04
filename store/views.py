@@ -107,7 +107,7 @@ def createListing(request):
                 for f in files:
                     gallery = Gallery(listing=listing, image=f)
                     gallery.save()
-            return redirect('create-listing')
+            return redirect('product-listing', listing_id=listing.id)
     else:
         form = CreateListingForm(initial={'seller':request.user.id, 'status':2})
     context = {'form': form}
