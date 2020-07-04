@@ -27,16 +27,26 @@
         <a class="nav-link" href="{% url 'create-listing' %}">Sell</a>
       </li>
     </ul>
-    <span class="navbar-text">
+    <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
-        <span><a href="{% url 'user-profile' %}">{{ user.username }}</a></span> | 
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="navbarProfileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user.username}}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
+          <li><a class="dropdown-item" href="{% url 'user-profile' %}">Dashboard</a></li>
+          <li><a class="dropdown-item" href="{% url 'user-home' %}">Settings</a></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </li>
+        {% comment %} <span><a href="{% url 'user-profile' %}">{{ user.username }}</a></span> | 
         <span><a href="{% url 'user-home' %}">Dash</a></span> | 
-        <span><a href="{% url 'logout' %}">logout</a></span>
+        <span><a href="{% url 'logout' %}">logout</a></span> {% endcomment %}
       {% else %}
         <a href="{% url 'login' %}">login</a> |
         <a href="{% url 'signup' %}">signup</a>
       {% endif %}
-    </span>
+    </ul>
   </div>
 </nav>
 
