@@ -1,50 +1,85 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load mptt_tags %}
 
 {% block content %}
-
     <div class="row">
         <div class="col-sm-8">
-            <div>
-                <h4>{{listing.title}}</h4>
+            <div class="row container-box green-box">
+              <div class="col-md-3">
+                <img src="{{listing.category.image.url}}">
+              </div>
+              <div class="col-md-9">
+                <h4>{{listing.category.name}}</h4>
                 <p>Sold by: {{listing.seller}}</p>
+                <p>{{listing.title}}</p>
                 <p>{{listing.description}}</p>
-                <p>${{listing.price}}</p>
+              </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="">
+          <div class="container-box bg-gray">
             <h5>Your Shipping Address</h5>
+            <hr>
             {% if user_address %}
             <p>{{user_address.street1}}</p>
-            <p>{{user_address.street2}}</p>
-            <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
-            <p><a data-toggle="modal" href="#setAddress">Change Address</a></p>
-            {% else %}
-                <p>Shipping address must be set to calculate final price.
-                <a data-toggle="modal" href="#setAddress">Set Address</a></p>
+            {% if user_address.street2 %}
+              <p>{{user_address.street2}}</p>
             {% endif %}
+            <p>{{user_address.city}}, {{user_address.state}} {{user_address.zipcode}}</p>
+            <hr>
+            <div class="text-center">
+              <a data-toggle="modal" href="#setAddress">Change Address</a>
+              {% else %}
+                  <p>Shipping address must be set to calculate final price.
+                  <a data-toggle="modal" href="#setAddress">Set Address</a></p>
+              {% endif %}
             </div>
+          </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-8">
-            <h5>Payment Breakdown</h5>
-            <p>Payment to Seller</p>
-            <p>Swappa Sale Fee</p>
-            <p>Shipping Costs</p>
-            <p>Taxes</p>
-            <hr>
-            <p>Total</p>
+      <div class="col-sm-8">
+        <div class="container-box fees">
+          <h5>Payment Breakdown</h5>
+          <table class="table">
+            <tr>
+              <td>Payment to Seller</td>
+              <td>{{listing.price}}</td>
+            </tr>
+            <tr>
+              <td>Sale Fee</td>
+              <td>$5</td>
+            </tr>
+            <tr>
+              <td>Shipping Costs</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Taxes</td>
+              <td>8%</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>$800</td>
+            </tr>
+          </table>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="container-box bg-gray">
+          <h5>Payment</h5>
+          <hr>
+          <form method="POST" action="">
+              {% csrf_token %}
+              {{form.as_p}}
+              {{form_listing.as_p}}
+              <button class="btn btn-success" name="transaction" type="submit">Paypal</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        {{form_listing.as_p}}
-        <button class="btn btn-success" name="transaction" type="submit">Pay Now using PayPal</button>
-    </form>
 
 
 <div class="modal fade" id="setAddress" tabindex="-1" role="dialog" aria-labelledby="setAddressLabel" aria-hidden="true">
