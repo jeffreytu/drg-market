@@ -10,8 +10,9 @@ from django.views.generic.edit import FormView
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
-    purchased = Transaction.objects.filter(buyer=request.user.id)
-    sold = Transaction.objects.filter(seller=request.user.id)
+    transactions = Transaction.objects.select_related('listing')
+    purchased = transactions.filter(buyer=request.user.id)
+    sold = transactions.filter(seller=request.user.id)
 
     context = {
         'listings': listings,

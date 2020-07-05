@@ -7,7 +7,6 @@
             {% csrf_token %}
             <table class="table table-hover listing-form">
             {{ form|crispy }}
-            {{form.}}
             </table>
             <button type="submit" class="save btn btn-success">Save</button>
         </form>
@@ -28,15 +27,5 @@
     {% else %}
         <p>show list of current top products for sale by other buyers</p>
         <p>ready to sell? login or register now</p>
-        <table class="table">
-            <tr>
-                <th>iPhone</th>
-                <th>Samsung</th>
-            </tr>
-            <tr>
-                <td>iPhone 11</td>
-                <td>Samsung Galaxy S20</td>
-            </tr>
-        </table>
     {% endif %}
 {% endblock content %}
