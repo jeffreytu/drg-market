@@ -3,12 +3,15 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <form method="POST" action="" class="post-form" enctype="multipart/form-data">
+        <form method="POST" action="" class="post-form sell-form" enctype="multipart/form-data" name="sell-form">
             {% csrf_token %}
             <table class="table table-hover listing-form">
             {{ form|crispy }}
             </table>
-            <button type="submit" class="save btn btn-success">Save</button>
+            <div class="dropzone" id="drop_gallery" name="dropzone_gallery">
+            </div>
+            {% comment %} <div id="dropzonePreview"></div> {% endcomment %}
+            <button type="submit" id="sell-submit" class="save btn btn-success">Create Listing</button>
         </form>
         {% if form.error %}
             {% for field in form %}
@@ -28,4 +31,7 @@
         <p>show list of current top products for sale by other buyers</p>
         <p>ready to sell? login or register now</p>
     {% endif %}
+    
+
 {% endblock content %}
+

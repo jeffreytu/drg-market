@@ -24,7 +24,7 @@ class Listing(models.Model):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=80, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     category = TreeForeignKey('Category',null=True,blank=True, on_delete=models.CASCADE)
     status = models.IntegerField('Status', choices=STATUS, default=0)

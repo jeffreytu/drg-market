@@ -7,6 +7,7 @@ from users.forms import ChangeAddressForm
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
+from django.http import JsonResponse
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
@@ -99,17 +100,21 @@ def editListing(request, listing_id):
     return render(request, 'product_listing_edit.html', context)
 
 def createListing(request):
+
     if request.method == 'POST':
         form = CreateListingForm(data=request.POST, user=request.user, files=request.FILES)
-        files = request.FILES.getlist('gallery')
+        the_files = request.FILES
+
         if form.is_valid():
             listing = form.save(commit=False)
+            listing.gallery = the_files
             listing.save()
-            if request.FILES:
-                for f in files:
-                    gallery = Gallery(listing=listing, image=f)
+
+            if the_files:
+                for f in the_files:
+                    gallery = Gallery(listing=listing, image=the_files[f])
                     gallery.save()
-            return redirect('product-listing', listing_id=listing.id)
+            return JsonResponse({'listing':listing.id})
     else:
         form = CreateListingForm(initial={'seller':request.user.id, 'status':2})
     context = {'form': form}

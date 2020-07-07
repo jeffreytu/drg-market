@@ -25,7 +25,7 @@ class TransactionForm(forms.ModelForm):
         return self.cleaned_data
 
 class CreateListingForm(forms.ModelForm):
-    gallery = forms.ImageField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    # gallery = forms.ImageField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:
         model = Listing
