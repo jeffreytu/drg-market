@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
     {% if user.is_authenticated %}
         <form method="POST" action="" class="post-form sell-form" enctype="multipart/form-data" name="sell-form">
             {% csrf_token %}
@@ -31,7 +32,5 @@
         <p>show list of current top products for sale by other buyers</p>
         <p>ready to sell? login or register now</p>
     {% endif %}
-    
 
 {% endblock content %}
-
