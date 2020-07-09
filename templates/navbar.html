@@ -1,4 +1,3 @@
-{% load mptt_tags %}
 <header>
   <div class="container">
     <div class="row">
@@ -10,23 +9,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span>Shop</span>
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              {% recursetree menu_categories %}
-                <li class="dropdown-submenu">
-                  <a class="dropdown-item dropdown-toggle" href="{% url 'product-category' node.slug %}">{{ node.name }}</a>
-                  {% if not node.is_leaf_node %}
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'product-category' node.slug %}">{{children}}</a></li>
-                  </ul>
-                  {% endif %}
-                </li>
-              {% endrecursetree %}
-              </ul>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'create-listing' %}">Sell</a>
             </li>
@@ -49,8 +31,10 @@
             {% endif %}
           </ul>
         </div>
+        <div>
       </nav>
       </div>
     </div>
+    {% include "menu.html" %}
   </div>
 </header>

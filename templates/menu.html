@@ -1,0 +1,18 @@
+<hr>
+<ul class="row cat-menu">
+    <li class="col-md-2 cat-menu-item nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="catMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>iPhones</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
+            {% for iphone in iphones %}
+            <li><a class="dropdown-item" href="{% url 'product-category' iphone.slug %}">{{ iphone }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li class="col-md-2 cat-menu-item">Samsung</li>
+    <li class="col-md-2 cat-menu-item">Laptops</li>
+    <li class="col-md-2 cat-menu-item">Tablets</li>
+    <li class="col-md-2 cat-menu-item">Watches</li>
+    <li class="col-md-2 cat-menu-item">Video Games</li>
+</ul>
