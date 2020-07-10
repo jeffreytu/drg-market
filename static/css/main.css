@@ -1,0 +1,162 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    color: gray;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin-top: 30px;
+}
+
+h4 {
+    margin-top: 15px;
+}
+
+ul.breadcrum {
+    border: 1px solid #eaeaea;
+    padding: 5px 15px;
+}
+ul.breadcrum li {
+    list-style: none;
+    display: inline;
+}
+ul.breadcrum li+li:before {
+    content: "> "
+}
+
+div.category-card {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #eaeaea;
+    text-align: center;
+}
+
+.listing-container a:link, .listing-container a:visited {
+    text-decoration: none;
+    color:black;
+}
+
+.listing-container a:hover {
+    background: gray;
+}
+
+div.listing-card {
+    /* margin-bottom: 15px; */
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.listing-description {
+    font-size: .9rem;
+}
+
+.listing-detail-container {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #eaeaea;
+}
+
+.container-box {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #eaeaea;
+}
+
+.green-box {
+    border: 1px solid green;
+    border-radius: 5px;
+}
+.bg-gray {
+    background: #f9f9f9;
+}
+
+.comment-submit-container {
+    margin-top: 15px;
+}
+
+.comment-card {
+    border: 1px solid #eaeaea;
+    padding: 15px;
+    margin: 5px 0;
+}
+
+form textarea {
+    width:100%;
+}
+
+.listing-table th {
+    width: 25%;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.page-footer {
+    color:white;
+    margin-top:30px;
+    background: #858585;
+}
+
+.page-footer a {
+    color:white;
+}
+
+.badge-seller {
+    background: #048dc1;
+    color:white;
+    padding: 5px;
+    display: inline;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.listing-cat-image img {
+    height: 200px;
+}
+
+.listing-images img {
+    margin: 10px;
+}
+
+.listing-price span {
+    font-size: 3em;
+    color: green;
+    font-weight: bolder;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+  }
+
+.listing-category-container {
+    background: #f5f5f5;
+    border: 1px solid #efefef;
+    padding: 15px;
+}
+
+header {
+    background:#f3f3f3;
+}
+
+.navbar { 
+    padding: 0
+}
+
+ul.cat-menu {
+    list-style: none;
+    padding-left:0;
+}
+.cat-menu-item {
+    display: inline-block;
+}
