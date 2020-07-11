@@ -55,6 +55,12 @@ def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
     comments = Comment.objects.filter(listing=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
+    user = CustomUser.objects.get(username=listing.seller)
+    print(user.id)
+    # seller_location = UserAddress.objects.get(user=10)
+    # print(seller_location.city)
+
+    
 
     user = request.user
 

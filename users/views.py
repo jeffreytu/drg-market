@@ -24,21 +24,22 @@ def userProfileView(request):
     try:
         # Grab user object from CustomerUser
         userAddress = UserAddress.objects.get(user__id=user.id)
+        form_address = ChangeAddressForm(instance=userAddress)
     except UserAddress.DoesNotExist:
         userAddress = None
+        form_address = ChangeAddressForm()
 
     if request.method == "POST":
         form_user = CustomUserChangeForm(request.POST, instance=user)
         form_address = ChangeAddressForm(request.POST, instance=userAddress)
         if form_user.is_valid() and form_address.is_valid():
             form_user.save()
-            form_address.save(commit=False)
-            form_address.user = user
-            form_address.save()
+            obj = form_address.save(commit=False)
+            obj.user = user
+            obj.save()
             return redirect('user-profile')
     else:
         form_user = CustomUserChangeForm(instance=user)
-        form_address = ChangeAddressForm(instance=userAddress)
         
     context = {
         'form_user': form_user,

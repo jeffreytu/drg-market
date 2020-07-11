@@ -3,11 +3,17 @@
 
 {% block content %}
 
-    <h4>{{listing.title}}</h4>
         {% if user.id == listing.seller.id and listing.status != 4 %}
             <div class="row">
-                <div class="col-md-12">
-                    <a href="{% url 'edit-listing' listing.id %}">Edit</a>
+                <div class="col-md-6">
+                    {% if listing.status == 2 %}
+                        <span><i class="fas fa-exclamation-circle fa-lg"></i> Listing pending approval</span>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="{% url 'edit-listing' listing.id %}">
+                        <button class="btn btn-primary btn-sm">Edit</button>
+                    </a>
                 </div>
             </div>
         {% endif %}
@@ -16,7 +22,7 @@
             <div class="col-md-6">
                 <div class="listing-detail-container">
                     <div>Sold by: {{listing.seller}}</div>
-                    <div>{{listing.description}}</div>
+                    <div>Sold by: {{listing.seller__user.address}}</div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -26,7 +32,11 @@
                     </div>
                     <div class="col-md-6">
                         {% if listing.status != 4 %}
-                        <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+                            {% if listing.status == 2 %}
+                                <div><button class="btn btn-secondary btn-lg">Unavailable</button></div>
+                            {% else %}
+                                <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+                            {% endif %}
                         {% else %}
                         <div><button class="btn btn-secondary btn-lg">Sold</button></div>
                         {% endif %}
@@ -52,6 +62,12 @@
                     <span>No images available</span>
                     </p>
                 {% endif %}
+            </div>
+        </div>
+        <div class="row listing-detail-container">
+            <div class="col-md-12">
+                <h5>{{listing.title}}</h5>
+                <div>{{listing.description}}</div>
             </div>
         </div>
 

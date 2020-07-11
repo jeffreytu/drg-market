@@ -22,5 +22,5 @@ class ChangeAddressForm(forms.ModelForm):
         fields = ('__all__')
         exclude = ['user']
 
-    def clean(self):
-        print(self)
+    # def clean(self):
+    #     print(self)
