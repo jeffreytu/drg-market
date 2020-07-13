@@ -36,7 +36,10 @@ class CreateListingForm(forms.ModelForm):
     class Meta:
         model = Listing
         fields = ('__all__')
-        widgets = {'seller': forms.HiddenInput()}
+        widgets = {
+            'seller': forms.HiddenInput(),
+            'status': forms.HiddenInput(),
+            }
 
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)

@@ -160,3 +160,6 @@ ul.cat-menu {
 .cat-menu-item {
     display: inline-block;
 }
+.dropzone {
+    margin-bottom: 15px;
+}
