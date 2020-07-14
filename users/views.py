@@ -30,7 +30,8 @@ def userProfileView(request):
         form_address = ChangeAddressForm()
 
     if request.method == "POST":
-        form_user = CustomUserChangeForm(request.POST, instance=user)
+        print(request.FILES)
+        form_user = CustomUserChangeForm(request.POST, instance=user, files=request.FILES)
         form_address = ChangeAddressForm(request.POST, instance=userAddress)
         if form_user.is_valid() and form_address.is_valid():
             form_user.save()
@@ -43,6 +44,7 @@ def userProfileView(request):
         
     context = {
         'form_user': form_user,
-        'form_address': form_address
+        'form_address': form_address,
+        'user': user,
     }
     return render(request, 'user_profile.html', context)

@@ -4,10 +4,11 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        <form method="POST" class="post-form">
+        <form method="POST" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h4>Profile Information</h4>
             {{form_user|crispy}}
+            <img src="{{user.profile_image.url}}" width="100px">
             <h4>Address</h4>
             {{form_address|crispy}}
             <button type="submit" class="save btn btn-success">Save</button>

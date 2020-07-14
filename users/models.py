@@ -3,9 +3,14 @@ from django.db import models
 
 # Create your models here.
 class CustomUser(AbstractUser):
+
+    def img_directory_path(instance, filename):
+        return 'users/{0}/{1}'.format(instance.username, filename)
+
     objects = UserManager()    
     first_name = models.CharField('First Name', max_length=255, null=True, blank=True)
     last_name = models.CharField('Last Name', max_length=255, null=True, blank=True)
+    profile_image = models.ImageField(upload_to=img_directory_path, blank=True, null=True)
 
     def __str__(self):
         return self.username
