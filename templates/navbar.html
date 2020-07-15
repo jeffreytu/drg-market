@@ -16,13 +16,13 @@
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="navbarProfileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{user.username}}
+              <a class="nav-link" href="" id="navbarProfileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="profile-image"><img src="{{user.profile_image.url}}"></div>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
-                <li><a class="dropdown-item" href="{% url 'user-home' %}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{% url 'user-profile' %}">Settings</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                <li class="dropdown-item"><a href="{% url 'user-home' %}">Dashboard</a></li>
+                <li class="dropdown-item"><a href="{% url 'user-profile' %}">Settings</a></li>
+                <li class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>
             {% else %}
@@ -35,6 +35,7 @@
       </nav>
       </div>
     </div>
+    <hr>
     {% include "menu.html" %}
   </div>
 </header>
