@@ -18,10 +18,15 @@
             </div>
         {% endif %}
 
+        <h3>{{ listing.category }}</h3>
         <div class="row">
             <div class="col-md-6">
                 <div class="listing-detail-container">
+                    {% if listing.seller.profile_image %}
                     <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                    {% else %}
+                    <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                    {% endif %}
                     <div>Sold by: {{listing.seller}}</div>
                 </div>
             </div>
@@ -35,7 +40,7 @@
                             {% if listing.status == 2 %}
                                 <div><button class="btn btn-secondary btn-lg">Unavailable</button></div>
                             {% else %}
-                                <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg">Buy Now</button></a></div>
+                                <div><a href="{% url 'buy-listing' listing.id %}"><button class="btn btn-success btn-lg btn-block">Buy Now</button></a></div>
                             {% endif %}
                         {% else %}
                         <div><button class="btn btn-secondary btn-lg">Sold</button></div>
@@ -64,6 +69,7 @@
                 {% endif %}
             </div>
         </div>
+        <h5>Description</h5>
         <div class="row listing-detail-container">
             <div class="col-md-12">
                 <h5>{{listing.title}}</h5>
@@ -75,23 +81,27 @@
     <div class="row">
         <div class="col-md-8">
             <div class="comment-container">
-            {% for comment in comments %}
-                <div class="comment-card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>{{ comment.author }}</strong>
-                            {% if comment.author == listing.seller %}
-                                <div class="badge-seller">Seller</div>
-                            {% endif %}
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>{{ comment.author }}</strong>
+                                {% if comment.author == listing.seller %}
+                                    <div class="badge-seller">Seller</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 text-right">{{ comment.created_on }}</div>
                         </div>
-                        <div class="col-md-6 text-right">{{ comment.created_on }}</div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">{{ comment.body | linebreaks }}</div>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">{{ comment.body | linebreaks }}</div>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <span>No comments</span>
+            {% endif %}
             </div>
         </div>
         <div class="col-md-4">
@@ -115,6 +125,10 @@
                 <p>You must be signed in to comment. Login or Signup</p>
             {% endif %}
             <div class="col-md-4">
+                <div class="container-box bg-gray">
+                    <p>Comments on this page are public and visible to everyone.</p>
+                    <p>After purchasing, you’ll gain access to a private page where you and the seller can communicate and track your item’s shipment.</p>
+                </div>
             </div>
         </div>
     </div>
