@@ -30,7 +30,6 @@ def userProfileView(request):
         form_address = ChangeAddressForm()
 
     if request.method == "POST":
-        print(request.FILES)
         form_user = CustomUserChangeForm(request.POST, instance=user, files=request.FILES)
         form_address = ChangeAddressForm(request.POST, instance=userAddress)
         if form_user.is_valid() and form_address.is_valid():
