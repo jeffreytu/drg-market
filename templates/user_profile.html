@@ -8,7 +8,11 @@
             {% csrf_token %}
             <h4>Profile Information</h4>
             {{form_user|crispy}}
+            {% if user.profile_image %}
             <img src="{{user.profile_image.url}}" width="100px">
+            {% else %}
+            <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+            {% endif %}
             <h4>Address</h4>
             {{form_address|crispy}}
             <button type="submit" class="save btn btn-success">Save</button>

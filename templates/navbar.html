@@ -17,7 +17,11 @@
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link" href="" id="navbarProfileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="profile-image"><img src="{{user.profile_image.url}}"></div>
+              {% if user.profile_image %}
+              <img src="{{user.profile_image.url}}" width="100px">
+              {% else %}
+              <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+              {% endif %}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
                 <li class="dropdown-item"><a href="{% url 'user-home' %}">Dashboard</a></li>
