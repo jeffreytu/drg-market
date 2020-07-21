@@ -6,6 +6,7 @@ urlpatterns = [
     
     path('', shopHome, name='home'),
     path('profile/', userProfileView, name='user-profile'),
+    path('profile/<str:seller>/', userView, name='view-seller'),
     path('dash/', userHome, name='user-home'),
     path('sell/', createListing, name='create-listing'),
     path('shop/', shopHome, name='shop-home'),

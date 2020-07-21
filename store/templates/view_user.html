@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="listing-detail-container">
+                {% if seller.profile_image %}
+                <div class="profile-image"><img src="{{seller.profile_image.url}}"></div>
+                {% else %}
+                <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                {% endif %}
+                {{seller.username}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Listings</h4>
+            {% for listing in listings %}
+                <a href="{% url 'product-listing' listing.id %}">
+                    <div class="row listing-card no-gutters">
+                        <div class="col-md-10">
+                            <div class="listing-title"><strong>{{listing.title}}</strong></div>
+                            {% comment %} <div class="listing-description">{{listing.description}}</div> {% endcomment %}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <div class="listing-price">
+                                ${{listing.price}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -22,6 +22,16 @@ def userHome(request):
         }
     return render(request, 'user_home.html', context)
 
+def userView(request, seller):
+    viewer = request.user
+    seller_profile = CustomUser.objects.get(username=seller)
+    listings = Listing.objects.filter(seller__username=seller)
+    context = {
+        'seller': seller_profile,
+        'listings': listings,
+    }
+    return render(request, 'view_user.html', context)
+
 def productCategoryView(request, the_slug):
     category_current = Category.objects.get(slug=the_slug)
     breadcrum = category_current.get_ancestors(ascending=False, include_self=True)
