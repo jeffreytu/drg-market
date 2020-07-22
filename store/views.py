@@ -217,3 +217,14 @@ def shopHome(request):
         'categories': categories
     }
     return render(request, 'shop-home.html', context)
+
+def shopPhones(request):
+    categories = Category.objects.select_related('parent').all()
+    iphones = categories.get(slug='apple-iphone').get_children()
+    samsungs = categories.get(slug='samsung').get_children()
+
+    context = {
+        'iphones': iphones,
+        'samsungs': samsungs,
+    }
+    return render(request, 'shop_phones.html', context)

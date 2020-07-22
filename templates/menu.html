@@ -1,7 +1,7 @@
 <ul class="row cat-menu">
-    <li class="col-md-2 cat-menu-item nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="" id="catMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span>iPhones</span>
+    {% comment %} <li class="col-md-2 cat-menu-item nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{% url 'product-category' 'apple-iphone' %}" id="catMenu" data-toggle="" aria-haspopup="true" aria-expanded="false">
+            iPhones
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
             {% for iphone in iphones %}
@@ -9,9 +9,28 @@
             {% endfor %}
         </ul>
     </li>
-    <li class="col-md-2 cat-menu-item">Samsung</li>
-    <li class="col-md-2 cat-menu-item">Laptops</li>
-    <li class="col-md-2 cat-menu-item">Tablets</li>
-    <li class="col-md-2 cat-menu-item">Watches</li>
-    <li class="col-md-2 cat-menu-item">Video Games</li>
+    <li class="col-md-2 cat-menu-item nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="catMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>Samsung</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
+            {% for samsung in samsungs %}
+            <li><a class="dropdown-item" href="{% url 'product-category' samsung.slug %}">{{ samsung }}</a></li>
+            {% endfor %}
+        </ul>
+    </li> {% endcomment %}
+    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'apple-iphone' %}">iPhones</a></li>
+    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'samsung' %}">Samsung</li>
+    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'google' %}">Google</li>
+    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'phones' %}">Shop All Phones</li>
+    <li class="col-md-2 cat-menu-item nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="catMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>Shop All Phones</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarProfileMenu">
+            {% for samsung in samsungs %}
+            <li><a class="dropdown-item" href="{% url 'product-category' samsung.slug %}">{{ samsung }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
 </ul>

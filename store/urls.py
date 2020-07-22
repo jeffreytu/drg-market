@@ -10,6 +10,7 @@ urlpatterns = [
     path('dash/', userHome, name='user-home'),
     path('sell/', createListing, name='create-listing'),
     path('shop/', shopHome, name='shop-home'),
+    path('shop/phones/', shopPhones, name='shop-phones'),
     path('shop/<slug:the_slug>/', productCategoryView, name='product-category'),
     path('shop/listing/<int:listing_id>/', productListingDetail, name='product-listing'),
     path('shop/listing/<int:listing_id>/edit/', editListing, name='edit-listing'),
