@@ -21,6 +21,7 @@
                                 <img src="{{ node.image.url }}" width="70px">
                             {% endif %}
                             <div class="category-name">{{ node.name }}</div>
+                            <div class="price">Starting from ${{node.avg_price|floatformat:0}}</div>
                         </div>
                     </a>
                 </div>

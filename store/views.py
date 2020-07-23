@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Avg, Min
 from .models import Product, Listing, Comment, CustomUser, Gallery, Transaction, Category
 from users.models import UserAddress
 from users.views import userProfileView
@@ -37,6 +38,12 @@ def productCategoryView(request, the_slug):
     breadcrum = category_current.get_ancestors(ascending=False, include_self=True)
     children = category_current.get_descendants(include_self=True)
     categories = category_current.get_descendants()
+
+    print(children)
+
+    for child in categories:
+        child_listings = Listing.objects.filter(category=child).filter(status=1).aggregate(avg_price=Min('price'))
+        child.avg_price = child_listings.get('avg_price')
 
     selected_listings = Listing.objects.select_related('seller').filter(category__in=children)
     sold_listings = selected_listings.filter(status=4)
