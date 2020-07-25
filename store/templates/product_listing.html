@@ -27,7 +27,10 @@
                     {% else %}
                         <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
                     {% endif %}
-                    <div class="seller-info">Sold by: <a href="{% url 'view-seller' listing.seller.username %}">{{listing.seller}}</a></div>
+                    <div class="seller-info">
+                        Sold by: <a href="{% url 'view-seller' listing.seller.username %}">{{listing.seller}}</a>
+                        {% if listing.location %}<br>{{listing.location}} {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">

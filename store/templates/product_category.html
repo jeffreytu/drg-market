@@ -51,7 +51,7 @@
                                     <a href="{% url 'product-listing' listing.id %}">
                                         <div class="row listing-card no-gutters">
                                             <div class="col-md-3">
-                                                {{listing.seller}}
+                                                {{listing.seller}} {% if listing.location %}<br>{{listing.location}} {% endif %}
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="listing-title"><strong>{{listing.title}}</strong></div>

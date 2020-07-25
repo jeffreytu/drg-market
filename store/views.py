@@ -39,8 +39,6 @@ def productCategoryView(request, the_slug):
     children = category_current.get_descendants(include_self=True)
     categories = category_current.get_descendants()
 
-    print(children)
-
     for child in categories:
         child_listings = Listing.objects.filter(category=child).filter(status=1).aggregate(avg_price=Min('price'))
         child.avg_price = child_listings.get('avg_price')
@@ -49,6 +47,12 @@ def productCategoryView(request, the_slug):
     sold_listings = selected_listings.filter(status=4)
     active_listings = selected_listings.filter(status=1)
 
+    for listing in active_listings:
+        try:
+            seller_location = UserAddress.objects.get(user=listing.seller)
+            listing.location = seller_location.city + ", " + seller_location.state
+        except:
+            listing.location = None
 
     context = {
         'active_listings': active_listings,
@@ -73,6 +77,12 @@ def productListingDetail(request,listing_id):
     comments = Comment.objects.filter(listing=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
     user = request.user
+
+    try:
+        seller_location = UserAddress.objects.get(user=listing.seller)
+        listing.location = seller_location.city + ", " + seller_location.state
+    except:
+        listing.location = None
 
     if request.method == 'POST':
         form = CommentForm(data=request.POST, user=user, listing=listing)
