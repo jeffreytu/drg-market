@@ -27,7 +27,7 @@ ul.breadcrum li {
     display: inline;
 }
 ul.breadcrum li+li:before {
-    content: "> "
+    content: "/ "
 }
 
 div.category-card {
@@ -35,6 +35,37 @@ div.category-card {
     padding: 15px;
     border: 1px solid #eaeaea;
     text-align: center;
+}
+
+.category-container a {
+    color: inherit;
+}
+
+.category-card:hover {
+    background: #f9f9f9;
+}
+
+.category-name {
+    font-size: 1em;
+    margin: 10px;
+}
+
+.category-name, .price {
+
+}
+
+.category-container .price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #009a44;
+}
+
+.category-container a:hover {
+    text-decoration: none;
+}
+
+.listing-container {
+    margin-bottom: 50px;
 }
 
 .listing-container a:link, .listing-container a:visited {
@@ -54,6 +85,14 @@ div.listing-card {
 
 .listing-description {
     font-size: .9rem;
+}
+
+.listing-detail-container .profile-image {
+    display:inline-block;
+    vertical-align: middle;
+}
+.listing-detail-container .seller-info {
+    display:inline-block;
 }
 
 .listing-detail-container {
@@ -84,6 +123,10 @@ div.listing-card {
     border: 1px solid #eaeaea;
     padding: 15px;
     margin: 5px 0;
+}
+
+.comment-card .profile-image {
+    display:inline-block;
 }
 
 form textarea {
@@ -145,6 +188,10 @@ footer {
     padding: 15px;
 }
 
+.listing-category-container img {
+    margin: 10px;
+}
+
 header {
     background:#f3f3f3;
 }
@@ -164,8 +211,19 @@ ul.cat-menu {
     margin-bottom: 15px;
 }
 
+.comment-card .profile-image {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .profile-image img {
     border-radius: 50%;
     width: 40px;
     height: 40px;
+}
+
+.comment-card .seller-info {
+    display:inline-block;
+    height: 40px;
+    line-height:40px;
 }

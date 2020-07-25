@@ -21,7 +21,9 @@
                                 <img src="{{ node.image.url }}" width="70px">
                             {% endif %}
                             <div class="category-name">{{ node.name }}</div>
-                            <div class="price">Starting from ${{node.avg_price|floatformat:0}}</div>
+                            {% if node.is_leaf_node %}
+                            <div class="price">${{node.avg_price|floatformat:0}}+</div>
+                            {% endif %}
                         </div>
                     </a>
                 </div>
@@ -36,7 +38,7 @@
                 <div class="listing-category-container">
                     <h4>{{category_current}}</h4>
                     <img src="{{category_current.image.url}}">
-                    <button class="btn btn-success btn-sm">Have one to sell?</button>
+                    {% comment %} <button class="btn btn-success btn-sm">Have one to sell?</button> {% endcomment %}
                 </div>
             </div>
             <div class="col-md-9">

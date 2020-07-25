@@ -23,11 +23,11 @@
             <div class="col-md-6">
                 <div class="listing-detail-container">
                     {% if listing.seller.profile_image %}
-                    <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                        <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
                     {% else %}
-                    <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                        <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
                     {% endif %}
-                    <div>Sold by: <a href="{% url 'view-seller' listing.seller.username %}">{{listing.seller}}</a></div>
+                    <div class="seller-info">Sold by: <a href="{% url 'view-seller' listing.seller.username %}">{{listing.seller}}</a></div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -86,10 +86,17 @@
                     <div class="comment-card">
                         <div class="row">
                             <div class="col-md-6">
-                                <strong>{{ comment.author }}</strong>
-                                {% if comment.author == listing.seller %}
-                                    <div class="badge-seller">Seller</div>
-                                {% endif %}
+                                <div class="seller-info">
+                                    {% if listing.seller.profile_image %}
+                                        <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                                    {% else %}
+                                        <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                                    {% endif %}
+                                    <strong>{{ comment.author }}</strong>
+                                    {% if comment.author == listing.seller %}
+                                        <div class="badge-seller">Seller</div>
+                                    {% endif %}
+                                </div>
                             </div>
                             <div class="col-md-6 text-right">{{ comment.created_on }}</div>
                         </div>
