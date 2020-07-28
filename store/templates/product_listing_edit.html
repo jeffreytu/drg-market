@@ -5,6 +5,23 @@
 {% block content %}
 
     {% if user.is_authenticated %}
+
+        <div class="row">
+            <div class="col-md-6">
+                {% if listing.status == 2 %}
+                    <span><i class="fas fa-exclamation-circle fa-lg"></i> Listing pending approval</span>
+                {% endif %}
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="{% url 'product-listing' listing.id %}">
+                    <button class="btn btn-primary btn-sm">View Listing</button>
+                </a>
+                <a href="{% url 'remove-listing' listing.id %}">
+                    <button type="button" class="remove btn btn-danger btn-sm">Remove Listing</button>
+                </a>
+            </div>
+        </div>
+
         <h4>Listing Details</h4>
         <form method="POST" action="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
@@ -20,9 +37,9 @@
                 <span>No images available</span>
                 </p>
             {% endif %}
+            <hr>
             <p>
-            <button type="submit" class="save btn btn-success">Save</button>
-            <a href="{% url 'remove-listing' listing.id %}"><button type="button" class="remove btn btn-danger">Remove Listing</button></a>
+                <button type="submit" class="save btn btn-success" style="float:right">Save Changes</button>
             </p>
         </form>
         {% if form.errors %}
