@@ -244,3 +244,12 @@ textarea.comment-body {
     width: 20px;
     height: 20px;
 } */
+
+footer ul {
+    list-style-type: none;
+    /* text-align: left; */
+}
+
+.footer-sub {
+    margin-top: 30px;
+}
