@@ -194,7 +194,10 @@ footer {
 }
 
 header {
-    background:#f3f3f3;
+    /* background:#f3f3f3; */
+    -webkit-box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
 }
 
 .navbar { 
@@ -236,3 +239,8 @@ textarea.comment-body {
 .container-area {
     margin: 30px 0;
 }
+
+/* .navbar .profile-image img {
+    width: 20px;
+    height: 20px;
+} */

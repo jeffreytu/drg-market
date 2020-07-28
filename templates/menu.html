@@ -23,7 +23,7 @@
     <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'samsung' %}">Samsung</li>
     <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'google' %}">Google</li>
     <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'phones' %}">Shop All Phones</li>
-    <li class="col-md-2 cat-menu-item nav-item dropdown">
+    {% comment %} <li class="col-md-2 cat-menu-item nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="" id="catMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span>Shop All Phones</span>
         </a>
@@ -32,5 +32,5 @@
             <li><a class="dropdown-item" href="{% url 'product-category' samsung.slug %}">{{ samsung }}</a></li>
             {% endfor %}
         </ul>
-    </li>
+    </li> {% endcomment %}
 </ul>
