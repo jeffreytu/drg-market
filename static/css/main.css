@@ -89,7 +89,8 @@ div.listing-card {
 
 .listing-detail-container .profile-image {
     display:inline-block;
-    vertical-align: middle;
+    /* vertical-align: middle; */
+    margin-right: 10px;
 }
 .listing-detail-container .seller-info {
     display:inline-block;
@@ -226,4 +227,12 @@ ul.cat-menu {
     display:inline-block;
     height: 40px;
     line-height:40px;
+}
+
+textarea.comment-body {
+    height: 20px;
+}
+
+.container-area {
+    margin: 30px 0;
 }

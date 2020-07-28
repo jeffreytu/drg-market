@@ -57,6 +57,10 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
+        widgets = {'body': forms.Textarea(attrs={'rows':5,
+                                            'cols':70,
+                                            'style':'resize:none;'}),
+        }
 
     def __init__(self, *args, **kwargs):
         self.loggedUser = kwargs.pop('user', None)
