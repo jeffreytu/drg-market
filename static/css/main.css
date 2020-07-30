@@ -83,6 +83,17 @@ div.listing-card {
     border-bottom: 1px solid #eaeaea;
 }
 
+.listing-card div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+
+.listing-card .profile-image {
+    margin-right: 15px;
+}
+
 .listing-description {
     font-size: .9rem;
 }
@@ -226,6 +237,10 @@ ul.cat-menu {
     vertical-align: middle;
 }
 
+.profile-image i {
+    color: #cccccc;
+}
+
 .profile-image img {
     border-radius: 50%;
     width: 40px;
@@ -243,7 +258,7 @@ textarea.comment-body {
 }
 
 .container-area {
-    margin: 30px 0;
+    margin-top: 30px;
 }
 
 /* .navbar .profile-image img {

@@ -33,17 +33,15 @@
     {% endif %}
 
     {% if not categories %}
-        <div class="row">
+        <div class="row container-area">
             <div class="col-md-3 text-center">
                 <div class="listing-category-container">
                     <h4>{{category_current}}</h4>
                     <img src="{{category_current.image.url}}">
-                    {% comment %} <button class="btn btn-success btn-sm">Have one to sell?</button> {% endcomment %}
                 </div>
             </div>
             <div class="col-md-9">
-                {% comment %} {% if active_listings %} {% endcomment %}
-                    <h4>Listings</h4>
+                    <h6>Listings</h6>
                     <div class="listing-container">
                         {% if active_listings %}
                             {% for listing in active_listings %}
@@ -51,11 +49,22 @@
                                     <a href="{% url 'product-listing' listing.id %}">
                                         <div class="row listing-card no-gutters">
                                             <div class="col-md-3">
-                                                {{listing.seller}} {% if listing.location %}<br>{{listing.location}} {% endif %}
+                                                <div class="listing-card-row">
+                                                    {% if listing.seller.profile_image %}
+                                                        <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                                                    {% else %}
+                                                        <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                                                    {% endif %}
+                                                    <div>
+                                                        <span>{{ listing.seller.username }}</span><br>
+                                                        {% if listing.location %}
+                                                            <span>{{listing.location}}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-7">
-                                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
-                                                {% comment %} <div class="listing-description">{{listing.description}}</div> {% endcomment %}
+                                                <div class="listing-title">{{listing.title}}</div>
                                             </div>
                                             <div class="col-md-2 text-right">
                                                 <div class="listing-price">
@@ -70,7 +79,7 @@
                             <div><span>No listings available.</span></div>
                         {% endif %}
                     </div>
-                    <h4>Recently Sold</h4>
+                    <h6>Recently Sold</h6>
                     <div class="listing-container">
                         {% if sold_listings %}
                             {% for listing in sold_listings %}
@@ -78,10 +87,22 @@
                                     <a href="{% url 'product-listing' listing.id %}">
                                         <div class="row listing-card no-gutters">
                                             <div class="col-md-3">
-                                                {{listing.seller}}
+                                                <div class="listing-card-row">
+                                                    {% if listing.seller.profile_image %}
+                                                        <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                                                    {% else %}
+                                                        <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                                                    {% endif %}
+                                                    <div>
+                                                        <span>{{ listing.seller.username }}</span><br>
+                                                        {% if listing.location %}
+                                                            <span>{{listing.location}}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-7">
-                                                <div class="listing-title"><strong>{{listing.title}}</strong></div>
+                                                <div class="listing-title">{{listing.title}}</div>
                                                 <div class="listing-description">{{listing.description}}</div>
                                             </div>
                                             <div class="col-md-2 text-right">
