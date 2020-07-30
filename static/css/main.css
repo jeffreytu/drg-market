@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;700&display=swap');
 html, body {
     height: 100%;
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'Nunito', sans-serif;
 }
 
 body {
@@ -211,14 +215,20 @@ footer {
 }
 
 header {
-    /* background:#f3f3f3; */
-    -webkit-box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
-    box-shadow: 0px 10px 5px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px -8px 4px 11px rgba(209,209,209,1);
+    -moz-box-shadow: 0px -8px 4px 11px rgba(209,209,209,1);
+    box-shadow: 0px -8px 4px 11px rgba(209,209,209,1);
 }
 
 .navbar { 
-    padding: 0
+    padding: 0;
+}
+.navbar .profile-image, .navbar .profile-name {
+    display:inline-block;
+    vertical-align: middle;
+}
+nav.cat-menu {
+    margin-bottom: 15px;
 }
 
 ul.cat-menu {
@@ -227,6 +237,14 @@ ul.cat-menu {
 }
 .cat-menu-item {
     display: inline-block;
+}
+.cat-menu-item a {
+    font-size: 1.2em;
+    font-weight: bolder;
+    color: black;
+}
+.menu-sell a {
+    color: #00ab27;
 }
 .dropzone {
     margin-bottom: 15px;
@@ -300,3 +318,13 @@ footer ul {
     height: 120px;
     display:block;
 }
+
+nav.cat-menu .navbar .navbar-nav {
+    /* display: inline-block; */
+    float: none !important;
+    /* vertical-align: top; */
+  }
+  
+nav.cat-menu .navbar .navbar-collapse {
+    text-align: center;
+  }

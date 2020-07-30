@@ -1,6 +1,10 @@
-<ul class="row cat-menu">
-    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'apple-iphone' %}">iPhones</a></li>
-    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'samsung' %}">Samsung</a></li>
-    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'google' %}">Google</a></li>
-    <li class="col-md-2 cat-menu-item"><a href="{% url 'product-category' 'phones' %}">Shop All Phones</a></li>
-</ul>
+<nav class="cat-menu navbar navbar-expand-lg navbar-light">
+    <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav ml-auto mx-auto">
+        <li class="nav-item cat-menu-item px-5"><a class="nav-link" href="{% url 'product-category' 'apple-iphone' %}"><i class="fa fa-apple" aria-hidden="true"></i> iPhones</a></li>
+        <li class="nav-item cat-menu-item px-5"><a class="nav-link" href="{% url 'product-category' 'samsung' %}"><i class="fa fa-android" aria-hidden="true"></i> Samsung</a></li>
+        <li class="nav-item cat-menu-item px-5"><a class="nav-link" href="{% url 'product-category' 'google' %}"><i class="fa fa-google" aria-hidden="true"></i> Google</a></li>
+        <li class="nav-item cat-menu-item px-5"><a class="nav-link" href="{% url 'create-listing' %}"><i class="fa fa-gavel" aria-hidden="true"></i> Sell Your Phone</a></li>
+    </ul>
+    </div>
+</nav>
