@@ -74,8 +74,11 @@ def productDetail(request, slug):
 
 def productListingDetail(request,listing_id):
     listing = Listing.objects.get(id=listing_id)
+    slug = listing.category.slug
     comments = Comment.objects.filter(listing=listing_id)
     gallery = Gallery.objects.filter(listing=listing_id)
+    category_current = Category.objects.get(slug=slug)
+    breadcrum = category_current.get_ancestors(ascending=False, include_self=True)
     user = request.user
 
     try:
@@ -99,6 +102,7 @@ def productListingDetail(request,listing_id):
         'comments': comments,
         'listing': listing,
         'gallery': gallery,
+        'breadcrum': breadcrum,
     }
 
     return render(request, 'product_listing.html', context)
