@@ -8,7 +8,7 @@
         {% for category in breadcrum %}
             <li><a href="{% url 'product-category' category.slug %}">{{category.name}}</a></li>
         {% endfor %}
-        <li>Listing {{listing.id}}</li>
+        <li>Listing {% if listing.listing_code %} {{listing.listing_code}} {% else %}{{listing.id}}{% endif %}</li>
     </ul>
 
         {% if user.id == listing.seller.id and listing.status != 4 %}

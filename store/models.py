@@ -2,6 +2,7 @@ from django.db import models
 from users.models import CustomUser
 from django.db.models.signals import post_save, pre_save
 from mptt.models import MPTTModel, TreeForeignKey
+import random, string
 
 # Create your models here.
 class Product(models.Model):
@@ -20,7 +21,7 @@ class Listing(models.Model):
         (3, 'Removed'),
         (4, 'Sold'),
     )
-
+    listing_code = models.CharField(max_length=8, null=True, blank=True)
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=80, null=True, blank=False)
     description = models.TextField(blank=False, null=True)

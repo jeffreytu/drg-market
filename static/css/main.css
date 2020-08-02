@@ -31,7 +31,8 @@ ul.breadcrum li {
     display: inline;
 }
 ul.breadcrum li+li:before {
-    content: "/ "
+    content: "/ ";
+    color: #e6e6e6;
 }
 
 div.category-card {
@@ -243,8 +244,8 @@ ul.cat-menu {
     font-weight: bolder;
     color: black;
 }
-.menu-sell a {
-    color: #00ab27;
+.menu-sell {
+    color: #00ab27 !important;
 }
 .dropzone {
     margin-bottom: 15px;

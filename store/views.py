@@ -9,6 +9,7 @@ from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
+import random, string
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
@@ -137,6 +138,7 @@ def createListing(request):
 
         if form.is_valid():
             listing = form.save(commit=False)
+            listing.listing_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
             listing.gallery = the_files
             listing.save()
 
