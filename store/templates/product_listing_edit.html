@@ -23,23 +23,15 @@
         </div>
 
         <h4>Listing Details</h4>
-        <form method="POST" action="" class="post-form" enctype="multipart/form-data">
+        <form method="POST" id="edit-listing-form" action="" class="post-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{form|crispy}}
 
             <h4>Pictures</h4>
-            {% if gallery %}
-                <p>
-                {% for imagelist in gallery %}
-                    <a href="{{imagelist.image.url}}"><img style="width:100px" src="{{imagelist.image.url}}"></a>
-                {% endfor %}
-            {% else %}
-                <span>No images available</span>
-                </p>
-            {% endif %}
+            <div class="dropzone" id="drop_gallery" name="dropzone_gallery"></div>
             <hr>
             <p>
-                <button type="submit" class="save btn btn-success" style="float:right">Save Changes</button>
+                <button type="submit" id="edit-submit" class="save btn btn-success" style="float:right">Save Changes</button>
             </p>
         </form>
         {% if form.errors %}
@@ -70,5 +62,10 @@
             </tr>
         </table>
     {% endif %}
+
+<script>
+   var existing_gallery = {{e_gallery|safe}};
+   var removed_gallery = [];
+</script>
 
 {% endblock content %}

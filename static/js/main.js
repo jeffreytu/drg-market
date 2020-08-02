@@ -12,9 +12,43 @@ jQuery(document).ready(function() {
                 acceptedFiles: 'image/*',
                 uploadMultiple: true,
                 parallelUploads: 5,
+                removedfile: function(file) {
 
+                    var csrftoken = getCookie('csrftoken');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: window.location.href,
+                        headers:{
+                            "X-CSRFToken": csrftoken
+                        },
+                        data: {
+                            name: file.name,
+                            request: 'delete'
+                        },
+                        success: function(data){
+                        }
+                    });
+
+                    var _ref;
+                        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                  },
                 init: function() {
                     var myDropzone = this
+
+                    //Populate any existing thumbnails
+                    if (existing_gallery) {
+                        for (var i = 0; i < existing_gallery.length; i++) {
+
+                            let mockFile = { 
+                                name: existing_gallery[i].image, 
+                                size: existing_gallery[i].image.size
+                            };
+                            myDropzone.displayExistingFile(mockFile, "/media/" + existing_gallery[i].image);
+
+                        }
+                        
+                    }
                     
                     document.getElementById("sell-submit").addEventListener("click", function(e) {
                         // Make sure that the form isn't actually being sent.
@@ -22,7 +56,10 @@ jQuery(document).ready(function() {
                         e.stopPropagation();
                         myDropzone.processQueue();
                     });
-                    
+
+                    this.on("success", function(data, xhr, formData) {
+                        formData.append("removed_images", removed_gallery)
+                    });
                     // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
                     // of the sending event because uploadMultiple is set to true.
                     this.on("sendingmultiple", function(data, xhr, formData) {
@@ -35,6 +72,7 @@ jQuery(document).ready(function() {
                         formData.append("category", jQuery("#id_category option:selected").val());
                         formData.append("status", jQuery("#id_status").val());
                         formData.append("product", jQuery("#id_product option:selected").val());
+                        formData.append("removed_images", removed_gallery)
 
                         /*
                         $(":input[name]", $("form")).each(function () {     formData.append(this.name, $(':input[name=' + this.name + ']', $("form")).val());   });
@@ -50,9 +88,9 @@ jQuery(document).ready(function() {
                         // Maybe show form again, and notify user of error
                     });
                 },
-                //sending: function (file, xhr, formData) {
-                    // Along with the file, shall I append all fields from the form above in the formData?
-                //}
+                // sending: function (file, xhr, formData) {
+                //     //Along with the file, shall I append all fields from the form above in the formData?
+                // }
         });
 });
 function getCookie(name) {

@@ -9,7 +9,8 @@ from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
-import random, string
+import random, string, json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def userHome(request):
     listings = Listing.objects.filter(seller=request.user.id)
@@ -110,23 +111,34 @@ def productListingDetail(request,listing_id):
 
 def editListing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    gallery = Gallery.objects.filter(listing=listing_id)
+    gal = Gallery.objects.filter(listing=listing_id).prefetch_related('listing')
+    gallery = gal.values('image')
+    
+
     if request.method == 'GET':
         form = CreateListingForm(instance=listing)
     elif request.method == 'POST':
             form = CreateListingForm(data=request.POST, instance=listing, user=request.user, files=request.FILES)
-            files = request.FILES.getlist('gallery')
-            if form.is_valid():
-                editlisting = form.save(commit=False)
-                for f in files:
-                    gallery = Gallery(listing=editlisting, image=f)
-                    gallery.save()
-                editlisting.save()
-                return redirect('edit-listing', listing_id=listing_id)
+            if request.POST.get('request') == 'delete':
+                image = Gallery.objects.get(image=request.POST.get('name'))
+                image.delete()
+            else:
+                files = request.FILES.getlist('gallery')
+
+                if form.is_valid():
+                    if len(files) > 0:
+                        editlisting = form.save(commit=False)
+                        for f in files:
+                            gallery = Gallery(listing=editlisting, image=f)
+                            gallery.save()
+                            editlisting.save()
+                    else:
+                        form.save()
+                    return redirect('edit-listing', listing_id=listing_id)
     context = {
         'form': form,
         'listing': listing,
-        'gallery': gallery,
+        'e_gallery': json.dumps(list(gallery))
         }
     return render(request, 'product_listing_edit.html', context)
 
