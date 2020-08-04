@@ -1,6 +1,8 @@
 Dropzone.autoDiscover = false;
 jQuery(document).ready(function() {
 
+    if (document.getElementById('drop_gallery')) {
+
         var myyDropzone = new Dropzone("#drop_gallery", {
                 url: window.location.href,
                 params: {'csrfmiddlewaretoken': getCookie('csrftoken')},
@@ -36,18 +38,20 @@ jQuery(document).ready(function() {
                 init: function() {
                     var myDropzone = this
 
-                    //Populate any existing thumbnails
-                    if (existing_gallery) {
-                        for (var i = 0; i < existing_gallery.length; i++) {
+                    if (document.getElementById('edit-listing-form')) {
+                        //Populate any existing thumbnails
+                        if (existing_gallery) {
+                            for (var i = 0; i < existing_gallery.length; i++) {
 
-                            let mockFile = { 
-                                name: existing_gallery[i].image, 
-                                size: existing_gallery[i].image.size
-                            };
-                            myDropzone.displayExistingFile(mockFile, "/media/" + existing_gallery[i].image);
+                                let mockFile = { 
+                                    name: existing_gallery[i].image, 
+                                    size: existing_gallery[i].image.size
+                                };
+                                myDropzone.displayExistingFile(mockFile, "/media/" + existing_gallery[i].image);
 
+                            }
+                            
                         }
-                        
                     }
                     
                     document.getElementById("sell-edit-submit").addEventListener("click", function(e) {
@@ -94,6 +98,7 @@ jQuery(document).ready(function() {
                 //     //Along with the file, shall I append all fields from the form above in the formData?
                 // }
         });
+    }
 });
 function getCookie(name) {
     var cookieValue = null;
