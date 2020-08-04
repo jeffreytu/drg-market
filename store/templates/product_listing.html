@@ -135,8 +135,8 @@
     <div class="comment-submit-container gapt-30">
       <strong>Post Comment</strong>
         <div class="row">
+            {% if user.is_authenticated %}
             <div class="col-md-6">
-                {% if user.is_authenticated %}
                 <form method="post">
                     {% csrf_token %}
                     <div class="comment-body"> 
@@ -146,15 +146,17 @@
                     <button type="submit" class="btn btn-success">Submit Comment</button>
                 </form>
             </div>
-            {% else %}
-                <p>You must be signed in to comment. Login or Signup</p>
-            {% endif %}
             <div class="col-md-6">
                 <div class="container-box bg-gray">
                     <p>Comments on this page are public and visible to everyone.</p>
                     <p>After purchasing, you’ll gain access to a private page where you and the seller can communicate and track your item’s shipment.</p>
                 </div>
             </div>
+            {% else %}
+                <div class="col-md-12">
+                    <p>You must be signed in to comment. Login or Signup</p>
+                </div>
+            {% endif %}
         </div>
     </div>
     {% endif %}
