@@ -37,7 +37,7 @@
                 </div>
                 {% if gallery %}
                     <div class="listing-images gapt-30">
-                        {% for imagelist in gallery|slice:"5" %}
+                        {% for imagelist in gallery|slice:"10" %}
                             <div class="image-thumb" style="background:url({{imagelist.image.url}}) 50% 50% no-repeat;background-size:cover;">
                                 <a href="{{imagelist.image.url}}"></a>
                             </div>

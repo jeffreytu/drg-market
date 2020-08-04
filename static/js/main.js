@@ -50,16 +50,18 @@ jQuery(document).ready(function() {
                         
                     }
                     
-                    document.getElementById("sell-submit").addEventListener("click", function(e) {
+                    document.getElementById("sell-edit-submit").addEventListener("click", function(e) {
                         // Make sure that the form isn't actually being sent.
-                        e.preventDefault();
-                        e.stopPropagation();
-                        myDropzone.processQueue();
+                        if (myDropzone.files.length > 0) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            myDropzone.processQueue();
+                        }
                     });
 
-                    this.on("success", function(data, xhr, formData) {
-                        formData.append("removed_images", removed_gallery)
-                    });
+                    // this.on("success", function(data, xhr, formData) {
+                    //     formData.append("removed_images", removed_gallery)
+                    // });
                     // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
                     // of the sending event because uploadMultiple is set to true.
                     this.on("sendingmultiple", function(data, xhr, formData) {
@@ -72,7 +74,7 @@ jQuery(document).ready(function() {
                         formData.append("category", jQuery("#id_category option:selected").val());
                         formData.append("status", jQuery("#id_status").val());
                         formData.append("product", jQuery("#id_product option:selected").val());
-                        formData.append("removed_images", removed_gallery)
+                        // formData.append("removed_images", removed_gallery)
 
                         /*
                         $(":input[name]", $("form")).each(function () {     formData.append(this.name, $(':input[name=' + this.name + ']', $("form")).val());   });

@@ -123,15 +123,20 @@ def editListing(request, listing_id):
                 image = Gallery.objects.get(image=request.POST.get('name'))
                 image.delete()
             else:
-                files = request.FILES.getlist('gallery')
+                files = request.FILES
+                print(request.FILES)
 
                 if form.is_valid():
-                    if len(files) > 0:
+
+                    editlisting = form.save(commit=False)
+                    editlisting.save()
+
+                    if files:
                         editlisting = form.save(commit=False)
                         for f in files:
-                            gallery = Gallery(listing=editlisting, image=f)
+                            gallery = Gallery(listing=editlisting, image=files[f])
                             gallery.save()
-                            editlisting.save()
+                        return JsonResponse({'listing':listing.id})
                     else:
                         form.save()
                     return redirect('edit-listing', listing_id=listing_id)
