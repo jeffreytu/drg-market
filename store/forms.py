@@ -39,6 +39,8 @@ class CreateListingForm(forms.ModelForm):
         widgets = {
             'seller': forms.HiddenInput(),
             'status': forms.HiddenInput(),
+            'listing_code': forms.HiddenInput(),
+            'product': forms.HiddenInput(),
             }
 
     def __init__(self, *args, **kwargs):
