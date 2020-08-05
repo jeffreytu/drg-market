@@ -4,41 +4,37 @@
 {% block content %}
 
     <div class="row">
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-8">
-    {% if user.is_authenticated %}
-        <form method="POST" action="" class="post-form sell-form" enctype="multipart/form-data" name="sell-form">
-            {% csrf_token %}
-            <table class="table table-hover listing-form">
-            {{ form|crispy }}
-            </table>
-            <h6>Images</h6>
-            <p>Please provide images that clearly showcase the condition of your item. Any defects must be noted and shown in at least one photo.</p>
-            <div class="dropzone" id="drop_gallery" name="dropzone_gallery"></div>
-            <button type="submit" id="sell-edit-submit" class="save btn btn-success">Create Listing</button>
-        </form>
-        {% if form.error %}
-            {% for field in form %}
-                {% for error in field.errors %}
+        <div class="col-md-12">
+        {% if user.is_authenticated %}
+            {% if form.error %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
                     <div class="alert alert-danger">
                         <strong>{{ error|escape }}</strong>
                     </div>
                 {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
+            {% endif %}
+            <form method="POST" action="" class="post-form sell-form" enctype="multipart/form-data" name="sell-form">
+                {% csrf_token %}
+                <table class="table table-hover listing-form">
+                {{ form|crispy }}
+                </table>
+                <h6>Images</h6>
+                <p>Please provide images that clearly showcase the condition of your item. Any defects must be noted and shown in at least one photo.</p>
+                <div class="dropzone" id="drop_gallery" name="dropzone_gallery"></div>
+                <button type="submit" id="sell-edit-submit" class="save btn btn-success">Create Listing</button>
+            </form>
+        {% else %}
+            <p>show list of current top products for sale by other buyers</p>
+            <p>ready to sell? login or register now</p>
+        </div>
         {% endif %}
-    {% else %}
-        <p>show list of current top products for sale by other buyers</p>
-        <p>ready to sell? login or register now</p>
-    {% endif %}
-    </div>
-    <div class="col-md-2">
-    </div>
     </div>
 
 {% endblock content %}

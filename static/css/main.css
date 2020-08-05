@@ -329,3 +329,20 @@ nav.cat-menu .navbar .navbar-nav {
 nav.cat-menu .navbar .navbar-collapse {
     text-align: center;
   }
+
+.link-item:nth-child(1) {
+    margin: 0 30px;
+}
+@media screen and (min-width: 992px) {
+    .sell-form {
+        width: 60%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .sell-form {
+        width: default;
+        margin: default;
+    }
+}
