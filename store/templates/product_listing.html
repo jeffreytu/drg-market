@@ -8,18 +8,20 @@
         {% for category in breadcrum %}
             <li><a href="{% url 'product-category' category.slug %}">{{category.name}}</a></li>
         {% endfor %}
-        <li>Listing {% if listing.listing_code %} {{listing.listing_code}} {% else %}{{listing.id}}{% endif %}</li>
+        <li>{% if listing.listing_code %} {{listing.listing_code}} {% else %}{{listing.id}}{% endif %}</li>
     </ul>
 
         {% if user.id == listing.seller.id and listing.status != 4 %}
         <div class="listing-status-container">
             <div class="row">
                 <div class="col-md-6">
-                    {% if listing.status == 2 %}
-                        <span><i class="fas fa-exclamation-circle fa-lg"></i> Listing pending approval</span>
-                    {% elif listing.status == 1 %}
-                        <span><i class="fa fa-check-circle" aria-hidden="true"></i> Approved</span>
-                    {% endif %}
+                    <div class="statuses">
+                        {% if listing.status == 2 %}
+                            <div class="status-pending"><span><i class="fas fa-exclamation-circle fa-lg"></i> Listing pending approval</span></div>
+                        {% elif listing.status == 1 %}
+                            <div class="status-approved"><span><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Approved</span></div>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="col-md-6 text-right">
                     <a href="{% url 'edit-listing' listing.id %}">

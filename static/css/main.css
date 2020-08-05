@@ -303,7 +303,16 @@ footer ul {
 
 .listing-status-container {
     padding: 10px;
-    background: #f9f2d9;
+    /* background: #f9f2d9; */
+}
+
+.listing-status-container .status-approved {
+    color: #44ab44;
+}
+
+
+.listing-status-container .status-pending {
+    color: #f1d700;
 }
 
 .image-thumb {
