@@ -124,7 +124,6 @@ def editListing(request, listing_id):
                 image.delete()
             else:
                 files = request.FILES
-                print(request.FILES)
 
                 if form.is_valid():
 
@@ -154,6 +153,7 @@ def createListing(request):
         the_files = request.FILES
 
         if form.is_valid():
+            # product field required to be valid form
             listing = form.save(commit=False)
             listing.listing_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
             listing.gallery = the_files
@@ -163,7 +163,9 @@ def createListing(request):
                 for f in the_files:
                     gallery = Gallery(listing=listing, image=the_files[f])
                     gallery.save()
-            return JsonResponse({'listing':listing.id})
+                return JsonResponse({'listing':listing.id})
+            else:
+                return redirect('product-listing', listing_id=listing.id)
     else:
         form = CreateListingForm(initial={'seller':request.user.id, 'status':2})
     context = {'form': form}

@@ -40,7 +40,7 @@ class CreateListingForm(forms.ModelForm):
             'seller': forms.HiddenInput(),
             'status': forms.HiddenInput(),
             'listing_code': forms.HiddenInput(),
-            'product': forms.HiddenInput(),
+            # 'product': forms.HiddenInput(), # product field required to be valid form
             }
 
     def __init__(self, *args, **kwargs):

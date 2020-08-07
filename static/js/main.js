@@ -71,6 +71,7 @@ jQuery(document).ready(function() {
                     this.on("sendingmultiple", function(data, xhr, formData) {
                         // Gets triggered when the form is actually being sent.
                         // Hide the success button or the complete form.
+                        formData.append("listing_code", jQuery("#id_listing_code").val());
                         formData.append("title", jQuery("#id_title").val());
                         formData.append("seller", jQuery("#id_seller").val());
                         formData.append("description", jQuery("#id_description").val());

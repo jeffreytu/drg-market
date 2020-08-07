@@ -21,7 +21,7 @@ class Listing(models.Model):
         (3, 'Removed'),
         (4, 'Sold'),
     )
-    listing_code = models.CharField(max_length=8, null=True, blank=True)
+    listing_code = models.CharField(max_length=8, null=True, blank=True, default=0)
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=80, null=True, blank=False)
     description = models.TextField(blank=False, null=True)
