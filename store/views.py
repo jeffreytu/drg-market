@@ -42,8 +42,10 @@ def productCategoryView(request, the_slug):
     categories = category_current.get_descendants()
 
     for child in categories:
-        child_listings = Listing.objects.filter(category=child).filter(status=1).aggregate(avg_price=Min('price'))
-        child.avg_price = child_listings.get('avg_price')
+        child_listings = Listing.objects.filter(category=child).select_related('price').filter(status=1)
+        child.listing_count = child_listings.count()
+        child_prices = child_listings.aggregate(avg_price=Min('price'))
+        child.avg_price = child_prices.get('avg_price')
 
     selected_listings = Listing.objects.select_related('seller').filter(category__in=children)
     sold_listings = selected_listings.filter(status=4)
@@ -51,7 +53,7 @@ def productCategoryView(request, the_slug):
 
     for listing in active_listings:
         try:
-            seller_location = UserAddress.objects.get(user=listing.seller)
+            seller_location = UserAddress.objects.select_related(user=listing.seller)
             listing.location = seller_location.city + ", " + seller_location.state
         except:
             listing.location = None

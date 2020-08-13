@@ -21,7 +21,7 @@
                                 <img src="{{ node.image.url }}" width="70px">
                             {% endif %}
                             <div class="category-name">{{ node.name }}</div>
-                            {% if node.is_leaf_node %}
+                            {% if node.is_leaf_node and node.listing_count > 0 %}
                             <div class="price">${{node.avg_price|floatformat:0}}+</div>
                             {% endif %}
                         </div>
