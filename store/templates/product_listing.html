@@ -54,7 +54,7 @@
             <div class="col-md-6">
                 <h5>{{ listing.category }}</h5>
                 <p>Sold By: <a href="{% url 'view-seller' listing.seller.username %}">{{listing.seller}}</a></p>
-                <div class="gap-30">{{listing.category.description}}</div>
+                <div class="gap-30">{{listing.category.description|linebreaks}}</div>
                 <div class="listing-price gap-30"><span>${{listing.price}}</span></div>
                 {% if listing.status != 4 %}
                     {% if listing.status == 2 %}
@@ -72,7 +72,7 @@
         <div class="row container-area">
             <div class="col-md-6">
                 <strong>Seller Description</strong>
-                <div>{{listing.description}}</div>
+                <div>{{listing.description|linebreaks}}</div>
             </div>
             <div class="col-md-6">
                 <div class="">
@@ -87,8 +87,8 @@
                         {% endif %} {% endcomment %}
                     </div>
                 </div>
-                <strong>{{listing.title}}</strong>
-                <div>{{listing.description}}</div>
+                {% comment %} <strong>{{listing.title}}</strong>
+                <div>{{listing.description|linebreaks}}</div> {% endcomment %}
             </div>
         </div>
     <hr>
