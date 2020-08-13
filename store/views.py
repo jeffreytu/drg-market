@@ -266,9 +266,11 @@ def shopPhones(request):
     categories = Category.objects.select_related('parent').all()
     iphones = categories.get(slug='apple-iphone').get_children()
     samsungs = categories.get(slug='samsung').get_children()
+    googles = categories.get(slug='google').get_children()
 
     context = {
         'iphones': iphones,
         'samsungs': samsungs,
+        'googles': googles,
     }
     return render(request, 'shop_phones.html', context)

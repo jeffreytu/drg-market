@@ -38,12 +38,21 @@
         {% endfor %}
         </div>
 
-    <div class="row">
+
         <h4>Google</h4>
-    </div>
-    <div class="row">
-    </div>
-    <div class="row">
-    </div>
+        <div class="row category-container">
+        {% for google in googles %}
+            <div class="col-md-2">
+                <a href="{% url 'product-category' google.slug %}">
+                    <div class="category-card">
+                        {% if google.image %}
+                            <img src="{{ google.image.url }}" width="70px">
+                        {% endif %}
+                        <div class="category-name">{{ google.name }}</div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
 
 {% endblock content %}
