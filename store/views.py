@@ -255,8 +255,8 @@ def transaction(request, listing_id):
     return render(request, 'buy-transaction.html', context)
 
 def shopHome(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()
+    categories = Category.objects.root_nodes()
+
     context = {
         'categories': categories
     }
