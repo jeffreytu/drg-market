@@ -9,6 +9,7 @@ from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.http import JsonResponse
+from django.db.models import Q
 import random, string, json
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -255,11 +256,13 @@ def transaction(request, listing_id):
     return render(request, 'buy-transaction.html', context)
 
 def shopHome(request):
+
     categories = Category.objects.root_nodes()
 
     context = {
-        'categories': categories
+        'categories': categories,
     }
+
     return render(request, 'shop-home.html', context)
 
 def shopPhones(request):
@@ -274,3 +277,32 @@ def shopPhones(request):
         'googles': googles,
     }
     return render(request, 'shop_phones.html', context)
+
+
+def search(request):
+
+    query = ""
+    
+    if request.method == "GET" and 'q' in request.GET:
+        query = request.GET['q']
+        listings = get_search_queryset(query)
+    
+        context = {
+            'listing_results': listings
+        }
+    
+    return render(request, 'search.html', context)
+
+def get_search_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    print(queries)
+    if queries[0] != "":
+        for q in queries:
+            results = Listing.objects.filter(
+                Q(category__name__icontains=q)
+            ).distinct()
+
+            for result in results:
+                queryset.append(result)
+        return list(set(queryset))

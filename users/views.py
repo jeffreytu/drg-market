@@ -47,3 +47,4 @@ def userProfileView(request):
         'user': user,
     }
     return render(request, 'user_profile.html', context)
+

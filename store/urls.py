@@ -9,6 +9,7 @@ urlpatterns = [
     path('profile/<str:seller>/', userView, name='view-seller'),
     path('dash/', userHome, name='user-home'),
     path('sell/', createListing, name='create-listing'),
+    path('search/', search, name='search'),
     path('shop/', shopHome, name='shop-home'),
     path('shop/phones/', shopPhones, name='shop-phones'),
     path('shop/<slug:the_slug>/', productCategoryView, name='product-category'),

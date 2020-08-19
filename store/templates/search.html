@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if listing_results %}
+        <h4>Search</h4>
+        {% for listing in listing_results %}
+
+            {% if listing.status == 1 %}
+                <a href="{% url 'product-listing' listing.id %}">
+                    <div class="row listing-card no-gutters">
+                        <div class="col-md-3">
+                            <div class="listing-card-row">
+                                {% if listing.seller.profile_image %}
+                                    <div class="profile-image"><img src="{{listing.seller.profile_image.url}}"></div>
+                                {% else %}
+                                    <div class="profile-image"><i class="fa fa-user-circle fa-3x" aria-hidden="true"></i></div>
+                                {% endif %}
+                                <div>
+                                    <span>{{ listing.seller.username }}</span><br>
+                                    {% if listing.location %}
+                                        <span>{{listing.location}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="listing-title">{{listing.category.name}} - {{listing.title}}</div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <div class="listing-price">
+                                ${{listing.price}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+      
+
+        {% endfor%}
+    {% else %}
+    <h4>No results</h4>
+    {% endif %}
+
+
+{% endblock content %}

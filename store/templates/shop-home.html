@@ -5,36 +5,35 @@
 
 {% block content %}
 
-    <div class="row gapt-30">
-        <div class="col-12 ">
-            <div class="headline text-center">
-                <h4>The Phone Marketplace</h4>
-                <h6>Sell your old phone and upgrade to a newer pre-owned.</h6>
+    {% if categories %}
+        {% load mptt_tags %}
+        <div class="row gapt-30">
+            <div class="col-12 ">
+                <div class="headline text-center">
+                    <h4>The Phone Marketplace</h4>
+                    <h6>Sell your old phone and upgrade to a newer pre-owned.</h6>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% load mptt_tags %}
-        {% if categories %}
-            <div class="row category-container gapt-30">
-                {% recursetree categories %}
-                    <div class="col-md-4">
-                        <a href="{% url 'product-category' node.slug %}">
-                            <div class="category-card">
-                                {% if node.image %}
-                                    <img src="{{ node.image.url }}" height="140px">
-                                {% endif %}
-                                <div class="category-name">{{ node.name }}</div>
-                                {% if node.is_leaf_node and node.listing_count > 0 %}
-                                <div class="price">${{node.avg_price|floatformat:0}}+</div>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </div>
-                {% endrecursetree %}
-            </ul>
-            </div>
-        {% endif %}
+        <div class="row category-container gapt-30">
+            {% recursetree categories %}
+                <div class="col-md-4">
+                    <a href="{% url 'product-category' node.slug %}">
+                        <div class="category-card">
+                            {% if node.image %}
+                                <img src="{{ node.image.url }}" height="140px">
+                            {% endif %}
+                            <div class="category-name">{{ node.name }}</div>
+                            {% if node.is_leaf_node and node.listing_count > 0 %}
+                            <div class="price">${{node.avg_price|floatformat:0}}+</div>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endrecursetree %}
+        </div>
+    {% endif %}
 
     {% comment %} <div class="row">
         <div class="col-md-12">
@@ -49,5 +48,5 @@
             </div>
         </div>
     </div> {% endcomment %}
-    
+
 {% endblock %}
